@@ -2,6 +2,8 @@
 
 ![Don Draper](./screenshot-don.jpg)
 
+![Output](./output.png)
+
 > "Make it simple, but significant." — Don Draper
 
 Curated Stacks Improvement Proposals, presented with clarity, whitespace, and taste. Built for Kernels, with a nod to Mad Men minimalism.
