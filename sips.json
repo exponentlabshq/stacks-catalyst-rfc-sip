@@ -1,0 +1,325 @@
+[
+  {
+    "sip": "000",
+    "title": "Stacks Improvement Proposal Process",
+    "type": "Meta",
+    "license": "BSD-2-Clause",
+    "authors": [
+      "Jude Nelson",
+      "Ken Liao"
+    ],
+    "emails": [
+      "jude@stacks.org",
+      "yukanliao@gmail.com"
+    ],
+    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP’s copyright"
+  },
+  {
+    "sip": "002",
+    "title": "The Clarity Smart Contract Language",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [
+      "Aaron Blankstein",
+      "Ludo Galabru"
+    ],
+    "emails": [
+      "aaron@blockstack.com",
+      "jude@stacks.org",
+      "ludo@blockstack.com"
+    ],
+    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP's copyright"
+  },
+  {
+    "sip": "004",
+    "title": "Cryptographic Commitment to Materialized Views",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [
+      "Jude Nelson"
+    ],
+    "emails": [
+      "jude@stacks.org"
+    ],
+    "copyright": null
+  },
+  {
+    "sip": "006",
+    "title": "Clarity Execution Cost Assessment",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [
+      "Aaron Blankstein",
+      "Reed Rosenbluth"
+    ],
+    "emails": [
+      "aaron@blockstack.com",
+      "jude@stacks.org",
+      "reed@blockstack.com"
+    ],
+    "copyright": null
+  },
+  {
+    "sip": "007",
+    "title": "Stacking Consensus",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [],
+    "emails": [
+      "aaron@blockstack.com",
+      "diwaker@blockstack.com",
+      "jesse@blockstack.com",
+      "jude@blockstack.com",
+      "jude@stacks.org",
+      "mfreed@cs.princeton.edu",
+      "muneeb@blockstack.com",
+      "patrick@blockstack.com"
+    ],
+    "copyright": null
+  },
+  {
+    "sip": "008",
+    "title": "Clarity Parsing and Analysis Cost Assessment",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [
+      "Aaron Blankstein"
+    ],
+    "emails": [
+      "aaron@blockstack.com",
+      "jude@stacks.org"
+    ],
+    "copyright": null
+  },
+  {
+    "sip": "009",
+    "title": "Standard Trait Definition for Non-Fungible Tokens",
+    "type": "Standard",
+    "license": "CC0-1.0",
+    "authors": [
+      "Friedger Müffke",
+      "Muneeb Majeed"
+    ],
+    "emails": [
+      "jude@stacks.org",
+      "mail@friedger.de"
+    ],
+    "copyright": "This SIP’s copyright is held by the Stacks Open Internet Foundation."
+  },
+  {
+    "sip": "010",
+    "title": "Standard Trait Definition for Fungible Tokens",
+    "type": "Standard",
+    "license": "CC0-1.0",
+    "authors": [
+      "Hank Stoever",
+      "Pascal Belloncle"
+    ],
+    "emails": [
+      "hstove@gmail.com",
+      "jude@stacks.org",
+      "psq@nanorails.com"
+    ],
+    "copyright": "This SIP’s copyright is held by the Stacks Open Internet Foundation."
+  },
+  {
+    "sip": "012",
+    "title": "Burn Height Selection for a Network Upgrade to Introduce New Cost-Limits",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [],
+    "emails": [
+      "aaron@hiro.so",
+      "asteria@syvita.org",
+      "diwaker@hiro.so",
+      "hank@stackerlabs.co",
+      "jason@joinfreehold.com",
+      "jason@okcoin.com",
+      "jude@stacks.org",
+      "juliet.oberding@gmail.com",
+      "ludo@hiro.so",
+      "pavitthra@hiro.so",
+      "recursive3@gmail.com",
+      "reed@hiro.so",
+      "trevor@stacks.ac",
+      "xan@daemontechnologies.co"
+    ],
+    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/ This SIP's copyright is held"
+  },
+  {
+    "sip": "013",
+    "title": "Standard Trait Definition for Semi-Fungible Tokens",
+    "type": "Standard",
+    "license": "CC0-1.0",
+    "authors": [
+      "Marvin Janssen"
+    ],
+    "emails": [
+      "brice@hiro.so",
+      "jude@stacks.org"
+    ],
+    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/. This SIP's copyright is held"
+  },
+  {
+    "sip": "016",
+    "title": "Schema Definition for Metadata for Digital Assets",
+    "type": "Standard",
+    "license": "CC0-1.0",
+    "authors": [
+      "Friedger Müffke",
+      "Dan Trevino"
+    ],
+    "emails": [
+      "dantrevino@gmail.com",
+      "jude@stacks.org",
+      "mail@friedger.de"
+    ],
+    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/ This SIP’s copyright is held"
+  },
+  {
+    "sip": "018",
+    "title": "Signed Structured Data",
+    "type": "Standard",
+    "license": "CC0-1.0",
+    "authors": [
+      "Marvin Janssen"
+    ],
+    "emails": [
+      "jude@stacks.org"
+    ],
+    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/ This SIP's copyright is held"
+  },
+  {
+    "sip": "019",
+    "title": "Notifications for Token Metadata Updates",
+    "type": "Standard",
+    "license": "GPL-3.0",
+    "authors": [
+      "Rafael Cárdenas",
+      "Matthew Little"
+    ],
+    "emails": [
+      "aaron@hiro.so",
+      "jude@stacks.org",
+      "matt@hiro.so",
+      "rafael@hiro.so"
+    ],
+    "copyright": null
+  },
+  {
+    "sip": "020",
+    "title": "Bitwise Operations in Clarity",
+    "type": "Consensus",
+    "license": "CC0-1.0",
+    "authors": [
+      "Cyle Witruk",
+      "Brice Dobry"
+    ],
+    "emails": [
+      "jason@joinfreehold.com",
+      "jesse@stacks.org",
+      "jude@stacks.org"
+    ],
+    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/ This SIP's copyright is held"
+  },
+  {
+    "sip": "022",
+    "title": "Emergency Fix to PoX Stacking Increases",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [],
+    "emails": [
+      "aaron@hiro.so",
+      "brice@hiro.so",
+      "jason@joinfreehold.com",
+      "jesse@stacks.org",
+      "jude@stacks.org",
+      "mail@friedger.de",
+      "pavi@stacks.org",
+      "rafael@hiro.so"
+    ],
+    "copyright": null
+  },
+  {
+    "sip": "023",
+    "title": "Emergency Fix to Trait Invocation Behavior",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [],
+    "emails": [
+      "aaron@hiro.so",
+      "brice@hiro.so",
+      "jason@joinfreehold.com",
+      "jesse@stacks.org",
+      "jude@stacks.org",
+      "rafael@hiro.so"
+    ],
+    "copyright": null
+  },
+  {
+    "sip": "024",
+    "title": "Emergency Fix to Data Validation and Serialization Behavior",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [],
+    "emails": [
+      "aaron@hiro.so",
+      "brice@hiro.so",
+      "jason@joinfreehold.com",
+      "jude@stacks.org",
+      "pavitthra@stacks.org"
+    ],
+    "copyright": null
+  },
+  {
+    "sip": "025",
+    "title": "Iterating towards Weighted Schnorr Threshold Signatures",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [],
+    "emails": [
+      "aaron@hiro.so",
+      "brice@hiro.so",
+      "hank@trustmachines.co",
+      "jacinta@trustmachines.co",
+      "jan@alumlabs.io",
+      "joey@trustmachines.co",
+      "jude@stacks.org"
+    ],
+    "copyright": null
+  },
+  {
+    "sip": "027",
+    "title": "Non-sequential Multisig Transactions",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [
+      "Jeff Bencin",
+      "Vlad Bespalov"
+    ],
+    "emails": [
+      "adriano@bitcoinl2labs.com",
+      "alex@hiro.so",
+      "andre@bitcoinl2labs.com",
+      "ashton@trustmachines.co",
+      "brittany@lattice.vc",
+      "daniel@trustmachines.co",
+      "friedger@ryder.id",
+      "i.digg.tech@gmail.com",
+      "jason@joinfreehold.com",
+      "jbencin@hiro.so",
+      "jesse@stacks.org",
+      "jesus@stratalabs.xyz",
+      "joey@trustmachines.co",
+      "jude@stacks.org",
+      "marten@trustmachines.co",
+      "mattystx@gmail.com",
+      "mjoecohen@gmail.com",
+      "philip@stackingdao.com",
+      "tycho@zestprotocol.com",
+      "vlad@asigna.io",
+      "will@stacks.org"
+    ],
+    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP’s copyright"
+  }
+]
