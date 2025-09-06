@@ -2,7 +2,7 @@
 
 ![Don Draper](./screenshot-don.jpg)
 
-![Output](./output.png)
+![Output](./output.jpg)
 
 > "Make it simple, but significant." — Don Draper
 
