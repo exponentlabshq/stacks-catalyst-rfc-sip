@@ -10,12 +10,11 @@ Curated Stacks Improvement Proposals, presented with clarity, whitespace, and ta
 
 ```bash
 # 1) Generate structured data from the SIP source
-python3 /Users/michaeljagdeo/Downloads/stacks-catalyst-rfc-sip/parse_sips.py \
-  --input /Users/michaeljagdeo/Downloads/stacks-catalyst-rfc-sip/stacksgov-sips-8cc4733e8c7d2679.txt \
-  --output /Users/michaeljagdeo/Downloads/stacks-catalyst-rfc-sip/sips.json
+python3 parse_sips.py \
+  --input stacksgov-sips-8cc4733e8c7d2679.txt \
+  --output sips.json
 
 # 2) Run a local static server (avoids file:// CORS)
-cd /Users/michaeljagdeo/Downloads/stacks-catalyst-rfc-sip
 python3 -m http.server 8000 &
 
 # 3) Open the experience
