@@ -1,90 +1,104 @@
-# 🥃 Stacks SIPs — Draper Edition
+# Stacks SIPs Suite
 
-![Don Draper](./screenshot-don.jpg)
+![Landing Screenshot](./latest-screenshot.png)
 
-![Output](./output.jpg)
+A polished, minimal suite for exploring and composing Stacks Improvement Proposals (SIPs).
 
-> "Make it simple, but significant." — Don Draper
+- Live demo: https://stacks-catalyst-rfc-sip-production.up.railway.app/
+- Repo: this repository
 
-Curated Stacks Improvement Proposals, presented with clarity, whitespace, and taste. Built for Kernels, with a nod to Mad Men minimalism.
+## What’s Inside
 
-## 🚀 Quick Launch
+- SIPs Explorer (index.html)
+  - Filterable grid, dark mode, full markdown view per SIP
+  - Data source: `sips.json` (generated from `sips-main/sips`)
+- SIP Submit (submit-sip.html)
+  - Guided form that generates a complete SIP in Markdown
+  - Copy-to-clipboard, supports Markdown bullets and code blocks
+- Pre-Landing (pre.html)
+  - Simple entry with CTAs to Landing, Explorer, and Submit
+- Landing (landing.html)
+  - Focused overview with links to Explorer and Submit
+
+## Quick Start (Local)
 
 ```bash
-# 1) Generate structured data from the SIP source
-python3 parse_sips.py \
-  --input stacksgov-sips-8cc4733e8c7d2679.txt \
-  --output sips.json
+# 1) Generate sips.json from the official SIPs directory
+python3 parse_sips.py --input sips-main/sips --output sips.json
 
-# 2) Run a local static server (avoids file:// CORS)
+# 2) Serve locally
 python3 -m http.server 8000 &
-
-# 3) Open the experience
-open http://localhost:8000/index.html
+open http://localhost:8000/pre.html
 ```
 
-To stop the server:
-```bash
-killall -9 Python
+## Deploy (Railway)
+
+This repo includes a minimal Nixpacks config and Python entrypoint.
+
+- Start command: `python3 app.py`
+- Root `/` serves `pre.html`
+
+Steps:
+1. Connect repo to Railway and deploy
+2. Ensure Start Command is `python3 app.py`
+3. Open assigned Railway URL
+
+## JSON Generation
+
+`parse_sips.py` supports two input modes:
+
+- From a combined text: `--input stacksgov-sips-*.txt`
+- From official directory: `--input sips-main/sips` (recommended)
+
+It outputs an array of entries containing: `sip`, `title`, `type`, `license`, `authors[]`, `emails[]`, and `path` (markdown path).
+
+## Viewer Notes
+
+- `view.html` safely renders markdown and rewrites relative asset links
+- Uses `marked` and `DOMPurify` via CDN
+
+## Submit a SIP (Console Snippets)
+
+- Dump/Copy:
+```js
+(() => {
+  const md = window.buildMarkdown?.();
+  console.log("\n--- SIP Markdown ---\n" + md);
+  navigator.clipboard?.writeText(md).catch(()=>{});
+})();
 ```
 
-## ✨ What You Get
-
-- **Elegant cards**: SIP, Title, Type, License, Authors, Emails, Copyright
-- **Search**: by SIP number, title, author, or email
-- **Filters**: Type and License
-- **Responsive**: mobile-first, desktop-perfect
-- **Dark mode**: follows system preference
-
-## 🧱 Structure
-
-```
-index.html      # Layout + controls
-styles.css      # Typography, spacing, cards, dark mode
-app.js          # Data loading, search, filters, rendering
-parse_sips.py   # SIP text → JSON (authors, emails, SIP, title, type, license, copyright)
-sips.json       # Generated dataset
-stacksgov-*.txt # SIP source (input)
-```
-
-## 🛠 Configuration
-
-- **Accent color**: edit `--accent` in `styles.css`
-- **Spacing**: adjust `.container` padding and `.grid` gap
-- **Data source**: regenerate `sips.json` via `parse_sips.py`
-
-## 🧭 Design Notes (For Kernels)
-
-- **Whitespace is a feature**: generous margins, breathable line height
-- **Typographic hierarchy**: bold titles, quiet metadata
-- **Soft motion**: subtle elevation and hover shifts
-- **Restraint**: no unnecessary chrome; content leads
-
-## 📦 One-Liner Setup
-
-```bash
-python3 parse_sips.py --input stacksgov-sips-8cc4733e8c7d2679.txt --output sips.json && \
-python3 -m http.server 8000 & sleep 1 && \
-open http://localhost:8000/index.html
+- Auto-fill demo with Clarity code in Reference Implementations:
+```js
+(() => {
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.value=v};
+  set("title","Stacks Endowment Growth Round and Ecosystem Acceleration");
+  set("consideration","Economics, Technical, Governance");
+  set("type","Consensus (hard fork)");
+  set("status","Draft");
+  set("license","BSD 2-Clause");
+  set("authors","- Jane Doe (jane@example.com)\n- John Smith (john@example.com)");
+  set("abstract","High-level summary of the proposal.");
+  set("specification","### Details\n- Part A\n- Part B");
+  set("activation","Define voting thresholds and fork height.");
+  set("refs","- Reference: https://github.com/example\n\n```clarity\n(define-public (demo (x uint)) (ok x))\n```\n");
+  const md=window.buildMarkdown?.();
+  console.log("\n--- SIP Markdown ---\n"+md);
+})();
 ```
 
-## 🌐 Publish
+## Structure
 
-- **GitHub Pages**: push these files to a public repo and enable Pages (root)
-- **Static hosts**: any CDN/static host will work as-is
-- **Railway**: deploy with Nixpacks. This repo includes `nixpacks.toml` to serve via Python's http.server.
-  1) Create new project → Deploy from GitHub
-  2) Set service root to repo root
-  3) Confirm detected Start Command: `python3 -m http.server $PORT --bind 0.0.0.0`
-  4) Deploy; open the assigned URL
-
-## 🧪 Troubleshooting
-
-- If the page is blank from file://, serve over http with `python3 -m http.server`
-- Hard refresh if data changes: `Cmd+Shift+R`
-
----
-
-Made with taste, whitespace, and a splash of 1960s confidence. 🥂
+```
+pre.html           # Pre-landing
+landing.html       # Landing overview
+index.html         # SIPs Explorer
+submit-sip.html    # SIP submission -> Markdown
+view.html          # Markdown viewer
+parse_sips.py      # Builds sips.json
+sips-main/         # Official SIPs
+sips.json          # Generated dataset
+app.py             # Serves pre.html at '/'
+```
 
 
