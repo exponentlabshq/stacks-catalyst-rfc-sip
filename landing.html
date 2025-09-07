@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Satoshi Upgrades • Stacks & sBTC</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      .hero-landing { padding: 48px 0 24px 0; }
+      .kicker { color: var(--muted); text-transform: uppercase; letter-spacing: .12em; font-size: 11px; }
+      .headline { margin: 6px 0 10px 0; font-size: clamp(28px, 4vw, 48px); letter-spacing: -0.02em; }
+      .subhead { color: var(--muted); font-size: 16px; max-width: 56ch; }
+      .cta-row { display: flex; gap: 10px; margin-top: 20px; }
+      .btn { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--border); background: var(--text); color: var(--bg); text-decoration: none; }
+      .btn.secondary { background: transparent; color: var(--text); }
+      .section { padding: 26px 0; border-top: 1px solid var(--border); }
+      .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+      .pill { border: 1px solid var(--border); border-radius: 999px; padding: 8px 12px; font-size: 12px; }
+      .placeholder { width: 100%; height: 180px; border-radius: var(--radius); background: var(--bg-weak); border: 1px solid var(--border); }
+      .grid-landing { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+      .card-landing { border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; background: var(--card); }
+      .card-landing h3 { margin: 6px 0 8px 0; font-size: 18px; }
+      .card-landing p { color: var(--muted); font-size: 14px; }
+      .card-landing a { display: inline-block; margin-top: 10px; text-decoration: none; }
+      .eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: .12em; font-size: 11px; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <div class="hero-landing">
+          <div class="kicker">Stacks & sBTC</div>
+          <h1 class="headline">Check out the 'Satoshi Upgrades' for Stacks & sBTC</h1>
+          <p class="subhead">Meet the new home of the Stacks Roadmap, a community-driven set of strategies and priorities for the leading Bitcoin L2.</p>
+          <div class="cta-row">
+            <a class="btn" href="index.html">Browse SIPs Explorer →</a>
+            <a class="btn secondary" href="#reading">Recommended Reading</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section">
+        <div class="eyebrow">Jump to a section</div>
+        <div class="pill-row">
+          <a class="pill" href="#stacks-core">Stacks Core</a>
+          <a class="pill" href="#sbtc">sBTC</a>
+          <a class="pill" href="#ecosystem">Ecosystem Growth</a>
+        </div>
+      </section>
+
+      <section class="section" id="reading">
+        <h2 class="title">Recommended Reading</h2>
+        <div class="grid-landing">
+          <article class="card-landing">
+            <div class="placeholder" aria-hidden="true"></div>
+            <h3>Stacks Value & Economy</h3>
+            <p>Learn how Stacks contributors think about dynamics that shape key systems with secure, sustainable development for builders and the ecosystem.</p>
+            <a href="#">Read more →</a>
+          </article>
+          <article class="card-landing">
+            <div class="placeholder" aria-hidden="true"></div>
+            <h3>sBTC Design Principles</h3>
+            <p>sBTC strategy is tightly linked to Stacks. Explore design principles balancing competing forces to guide sBTC and Stacks forward.</p>
+            <a href="#">Read more →</a>
+          </article>
+          <article class="card-landing">
+            <div class="placeholder" aria-hidden="true"></div>
+            <h3>Stacks DeFi Growth Plans</h3>
+            <p>As new Bitcoin products go to market, the ecosystem rallies to help builders grow and proposes new areas for investment.</p>
+            <a href="#">Read more →</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="stacks-core">
+        <h2 class="title">Stacks Core</h2>
+        <h3>Block production and speed</h3>
+        <p>The need for fast, consistent transactions is table stakes for any top ecosystem. Both speed and throughput are critical areas of R&D as the ecosystem scales, building off progress since Nakamoto and sBTC.</p>
+        <p><strong>What Core Developers are working toward:</strong></p>
+        <ul>
+          <li>Short-term: Achieve consistent <10s transaction times.</li>
+          <li>Long-term: Become the fastest Bitcoin L2 while prioritizing robustness, decentralization, and security.</li>
+          <li>Ongoing: Signer-side optimizations, cost tracker updates, VM optimizations, benchmarking WASM.</li>
+        </ul>
+        <p><em>Leads: Bitcoin L2 Labs, Hiro Systems, Stacks Foundation</em></p>
+
+        <h3>Clarity & Wasm</h3>
+        <p>New Clarity and Wasm compilation aim to remove technical debt and lay groundwork for throughput and app performance improvements.</p>
+        <p><em>Leads: Hiro, Bitcoin L2 Labs, Clarity4 SIP</em></p>
+
+        <h3>Stacking Improvements, Ledger Live</h3>
+        <p>Simplify PoX and Stacking for higher-yield UX and stronger Stacker–signer relationships; streamline pool ops; prepare for Ledger Live integration.</p>
+        <p><em>Leads: Alum Labs, Zondax, BD Working Group</em></p>
+
+        <h3>Miner Transaction Replay on Bitcoin Reorg</h3>
+        <p>Add feature for the default miner to replay orphaned transactions after a Bitcoin reorg; testnet in Q3 2025.</p>
+
+        <h3>"PoX 5"</h3>
+        <p>Exploration of an upgraded PoX informed by stacking improvements and ecosystem needs.</p>
+      </section>
+
+      <section class="section" id="sbtc">
+        <h2 class="title">sBTC</h2>
+        <p><strong>Satoshi's Upgrades:</strong> Preview technical advances for Stacks and sBTC. [Check them out]</p>
+
+        <h3>sBTC Withdrawal Functionality</h3>
+        <p>Enabled April 30, 2025, unlocking downstream integrations, listings, and growth.</p>
+
+        <h3>Improved custody support for sBTC</h3>
+        <p>Onboarding institutional users via qualified custodians to deploy BTC capital into Stacks DeFi.</p>
+
+        <h3>Driving STX value with future network upgrades</h3>
+        <p>Align growth in usage with value accrual to the network, participants, and STX.</p>
+
+        <h3>Toward Trustless sBTC</h3>
+        <p>Exploring self-custodial designs, Bitcoin post-conditions, and related mechanisms to further reduce trust assumptions.</p>
+
+        <h3>Areas of Exploration</h3>
+        <ul>
+          <li>BitVM</li>
+          <li>Data Availability on Bitcoin (DA)</li>
+        </ul>
+      </section>
+
+      <section class="section" id="ecosystem">
+        <h2 class="title">Ecosystem Growth</h2>
+        <h3>Stacks TVL, Liquidity & DeFi Growth</h3>
+        <p>Builder-led DeFi growth plan targeting $250mm by end of Q2 2025 on a path to $1B TVL. Incentives, MM, stablecoin liquidity.</p>
+
+        <h3>sBTC TVL (Cap 3 & Beyond)</h3>
+        <p>Further caps and initiatives to bring BTC into Stacks apps; partnerships driving the first 21,000 sBTC.</p>
+
+        <h3>Centralized exchange listings (sBTC, SIP-010)</h3>
+        <p>Listing paths open with withdrawals live; leverage sBTC interest to ease SIP-010 asset listings.</p>
+
+        <h3>Interoperability (Bridges)</h3>
+        <p>Axelar and Wormhole integrations expand liquidity and user base beyond the native ecosystem.</p>
+
+        <h3>BNS</h3>
+        <p>Standardize zonefiles for better wallet/social metadata interoperability.</p>
+
+        <h3>Stablecoins</h3>
+        <p>Bridged USDC and Bitcoin-backed stablecoins (USDh) while pursuing a canonical Tier 1 stablecoin deployment.</p>
+
+        <h3>Wallet Integrations</h3>
+        <p>Broader wallet support to grow users; major integration announcement pending.</p>
+
+        <h3>Grants, Marketing, & Incentives</h3>
+        <p>Additional resources proposed for global marketing, builder grants, incentives, and growth campaigns.</p>
+      </section>
+
+      <section class="section">
+        <p class="subhead">The Stacks Roadmap is determined by the community and updated as new information is available. It captures widely impactful work and the long-term vision for key ecosystem aspects.</p>
+        <div class="cta-row">
+          <a class="btn" href="index.html">Enter SIPs Explorer →</a>
+          <a class="btn secondary" href="#">Add something to this roadmap</a>
+        </div>
+      </section>
+    </main>
+  </body>
+  </html>
+
+
