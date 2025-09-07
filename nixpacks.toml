@@ -1,6 +1,3 @@
-[build]
-builder = "railpack"
-
 [start]
 cmd = "python3 app.py"
 

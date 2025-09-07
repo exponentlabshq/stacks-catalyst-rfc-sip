@@ -1,0 +1,3 @@
+[service]
+name = "stacks-sips"
+start = "python3 app.py"
