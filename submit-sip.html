@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Create a SIP (Markdown Generator)</title>
+    <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/favicon/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon/favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      .form { display: grid; gap: 14px; }
+      .row { display: grid; gap: 8px; }
+      .row.two { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+      label { font-size: 12px; color: var(--muted); }
+      input, select, textarea { width: 100%; padding: 12px 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 14px; }
+      textarea { min-height: 120px; resize: vertical; }
+      .hint { font-size: 12px; color: var(--muted); }
+      .actions { display: flex; gap: 10px; margin-top: 10px; }
+      .btn { display: inline-flex; align-items: center; gap: 10px; height: 42px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--text); color: var(--bg); text-decoration: none; cursor: pointer; }
+      .btn.secondary { background: transparent; color: var(--text); }
+      .note { margin-top: 8px; color: var(--muted); font-size: 13px; }
+      .ok { color: #059669; }
+      .error { color: #b91c1c; }
+      .preview { margin-top: 16px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); padding: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; max-height: 360px; overflow: auto; white-space: pre-wrap; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <div class="hero">
+          <h1 class="title">Create a SIP</h1>
+          <p class="subtitle">Fill the form using Markdown where appropriate. Click “Copy Markdown” to get a ready-to-submit SIP.</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <form id="sip-form" class="form" onsubmit="return false;">
+        <div class="row two">
+          <label>
+            <span>SIP Number (optional)</span>
+            <input id="sipNumber" placeholder="e.g., 031 or leave blank (TBD)" />
+          </label>
+          <label>
+            <span>Created (ISO or human-readable)</span>
+            <input id="created" placeholder="e.g., 2025-07-16" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Title</span>
+            <input id="title" placeholder="SIP Title" />
+          </label>
+        </div>
+
+        <div class="row two">
+          <label>
+            <span>Consideration</span>
+            <input id="consideration" placeholder="e.g., Governance, Technical, Economics" />
+          </label>
+          <label>
+            <span>Type</span>
+            <input id="type" placeholder="e.g., Consensus (hard fork), Standard, Operation" />
+          </label>
+        </div>
+
+        <div class="row two">
+          <label>
+            <span>Status</span>
+            <input id="status" placeholder="e.g., Draft, Accepted, Ratified" />
+          </label>
+          <label>
+            <span>License</span>
+            <input id="license" placeholder="e.g., BSD 2-Clause, CC0-1.0" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Authors (Markdown bullets encouraged)</span>
+            <textarea id="authors" placeholder="- Full Name (email@domain)\n- Another Author (name@domain)"></textarea>
+          </label>
+          <div class="hint">Tip: Use one author per line with email in parentheses, like SIP-028.</div>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Sign-off (optional, Markdown bullets)</span>
+            <textarea id="signoff" placeholder="- Name email@domain (Role)"></textarea>
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Discussions-To (URL or reference)</span>
+            <input id="discussions" placeholder="e.g., https://forum.stacks.org/..." />
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Abstract (Markdown)</span>
+            <textarea id="abstract" placeholder="Concise summary of the proposal and what it enables."></textarea>
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Introduction (Markdown)</span>
+            <textarea id="introduction"></textarea>
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Problem Statement (optional, Markdown)</span>
+            <textarea id="problem"></textarea>
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Proposed Solution (optional, Markdown)</span>
+            <textarea id="solution"></textarea>
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Specification (Markdown)</span>
+            <textarea id="specification"></textarea>
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Related Work (optional, Markdown)</span>
+            <textarea id="related"></textarea>
+          </label>
+        </div>
+
+        <div class="row two">
+          <label>
+            <span>Backwards Compatibility (optional, Markdown)</span>
+            <textarea id="backcompat"></textarea>
+          </label>
+          <label>
+            <span>Activation (Markdown)</span>
+            <textarea id="activation"></textarea>
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Reference Implementations (optional, Markdown)</span>
+            <textarea id="refs"></textarea>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button class="btn" id="copyBtn">Copy Markdown</button>
+          <button class="btn secondary" id="previewBtn">Preview</button>
+          <button class="btn secondary" id="clearBtn">Clear</button>
+        </div>
+        <div id="note" class="note"></div>
+        <pre id="preview" class="preview" hidden></pre>
+      </form>
+    </main>
+
+    <script>
+      const $ = (s, r=document) => r.querySelector(s);
+      const v = id => $(id.startsWith('#')?id:'#'+id).value.trim();
+
+      function asBullets(text) {
+        if (!text) return '';
+        return text.split('\n').map(l => l.trim()).filter(Boolean).map(l => l.startsWith('-')? l : `- ${l}`).join('\n');
+      }
+
+      function field(label, value) {
+        if (!value) return '';
+        return `**${label}:** ${value}`;
+      }
+
+      function buildMarkdown() {
+        const sipNumber = v('sipNumber') || 'TBD';
+        const created = v('created');
+        const title = v('title');
+        const consideration = v('consideration');
+        const type = v('type');
+        const status = v('status') || 'Draft';
+        const license = v('license') || 'BSD 2-Clause';
+        const authors = asBullets(v('authors'));
+        const signoff = asBullets(v('signoff'));
+        const discussions = v('discussions');
+        const abstract = v('abstract');
+        const introduction = v('introduction');
+        const problem = v('problem');
+        const solution = v('solution');
+        const specification = v('specification');
+        const related = v('related');
+        const backcompat = v('backcompat');
+        const activation = v('activation');
+        const refs = v('refs');
+
+        const preamble = [
+          '# Preamble',
+          '',
+          field('SIP Number', sipNumber),
+          '',
+          field('Title', title),
+          '',
+          authors ? '**Authors:**\n' + authors : '',
+          '',
+          field('Consideration', consideration),
+          '',
+          field('Type', type),
+          '',
+          field('Status', status),
+          '',
+          field('Created', created),
+          '',
+          field('License', license),
+          '',
+          signoff ? '**Sign-off:**\n' + signoff : '',
+          '',
+          discussions ? '**Discussions-To:**\n- ' + discussions : '',
+        ].filter(Boolean).join('\n');
+
+        const sections = [];
+        if (abstract) sections.push('## Abstract\n\n' + abstract);
+        if (introduction) sections.push('## Introduction\n\n' + introduction);
+        if (problem) sections.push('## Problem Statement\n\n' + problem);
+        if (solution) sections.push('## Proposed Solution\n\n' + solution);
+        if (specification) sections.push('# Specification\n\n' + specification);
+        if (related) sections.push('# Related Work\n\n' + related);
+        if (backcompat) sections.push('# Backwards Compatibility\n\n' + backcompat);
+        if (activation) sections.push('# Activation\n\n' + activation);
+        if (refs) sections.push('# Reference Implementations\n\n' + refs);
+
+        const md = [preamble, sections.join('\n\n')].filter(Boolean).join('\n\n');
+        return md;
+      }
+
+      async function copyMarkdown() {
+        const note = $('#note');
+        const md = buildMarkdown();
+        try {
+          await navigator.clipboard.writeText(md);
+          note.textContent = 'Copied Markdown to clipboard.';
+          note.className = 'note ok';
+          $('#preview').hidden = false; $('#preview').textContent = md;
+        } catch (e) {
+          note.textContent = 'Copy failed. Select from preview and copy manually.';
+          note.className = 'note error';
+          $('#preview').hidden = false; $('#preview').textContent = md;
+        }
+      }
+
+      $('#copyBtn').addEventListener('click', copyMarkdown);
+      $('#previewBtn').addEventListener('click', () => { const md = buildMarkdown(); $('#preview').hidden = false; $('#preview').textContent = md; });
+      $('#clearBtn').addEventListener('click', () => { document.getElementById('sip-form').reset(); $('#preview').hidden = true; $('#note').textContent=''; });
+    </script>
+  </body>
+  </html>
+
+
