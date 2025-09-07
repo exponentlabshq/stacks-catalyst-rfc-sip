@@ -3,14 +3,14 @@ import argparse
 import json
 import re
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 
-SIP_START_RE = re.compile(r"^SIP\s*Number:\s*(\d+)")
-TITLE_RE = re.compile(r"^Title\s*:\s*(.+)")
-TYPE_RE = re.compile(r"^Type\s*:\s*(.+)")
-LICENSE_RE = re.compile(r"^License\s*:\s*(.+)")
-AUTHORS_RE = re.compile(r"^(?:Author|Authors)\s*:\s*(.+)")
+SIP_START_RE = re.compile(r"^\*{0,2}SIP Number:\*{0,2}\s*(\d+)")
+TITLE_RE = re.compile(r"^\*{0,2}Title:\*{0,2}\s*(.+)")
+TYPE_RE = re.compile(r"^\*{0,2}Type:\*{0,2}\s*(.+)")
+LICENSE_RE = re.compile(r"^\*{0,2}License:\*{0,2}\s*(.+)")
+AUTHORS_RE = re.compile(r"^\*{0,2}(?:Author|Authors):\*{0,2}\s*(.*)")
 EMAIL_RE = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
 
 
@@ -114,15 +114,154 @@ def parse_sips(text: str) -> List[Dict[str, Optional[str]]]:
     return results
 
 
+def _line_looks_like_field_header(line: str) -> bool:
+    candidates = (
+        "SIP Number:", "Title:", "Author:", "Authors:", "Consideration:",
+        "Type:", "Status:", "Created:", "License:", "Sign-off:", "Discussions-To:"
+    )
+    for key in candidates:
+        if key in line.replace("**", ""):
+            return True
+    return line.startswith("# ") or line.startswith("## ")
+
+
+def parse_markdown_sip(text: str) -> Dict[str, Optional[str]]:
+    result: Dict[str, Optional[str]] = {
+        "sip": None,
+        "title": None,
+        "type": None,
+        "license": None,
+        "authors": [],
+        "emails": [],
+        "copyright": None,
+    }
+
+    emails: set = set()
+    lines = text.splitlines()
+    authors_collect_mode = False
+    author_lines: List[str] = []
+
+    for raw in lines:
+        line = raw.strip()
+
+        # Always collect emails
+        for email in EMAIL_RE.findall(line):
+            emails.add(email)
+
+        # Parse primary fields (bold or plain labels)
+        if result.get("sip") is None:
+            m = SIP_START_RE.match(line)
+            if m:
+                result["sip"] = m.group(1)
+                continue
+
+        if result.get("title") is None:
+            m = TITLE_RE.match(line)
+            if m:
+                result["title"] = m.group(1).strip()
+                continue
+
+        if result.get("type") is None:
+            m = TYPE_RE.match(line)
+            if m:
+                result["type"] = m.group(1).strip()
+                continue
+
+        if result.get("license") is None:
+            m = LICENSE_RE.match(line)
+            if m:
+                result["license"] = m.group(1).strip()
+                continue
+
+        m = AUTHORS_RE.match(line)
+        if m:
+            rest = m.group(1).strip()
+            authors_collect_mode = True
+            if rest:
+                author_lines.append(rest)
+            continue
+
+        if authors_collect_mode:
+            if not line or _line_looks_like_field_header(line):
+                authors_collect_mode = False
+            else:
+                author_lines.append(line)
+
+        # Copyright heuristic
+        if ("copyright" in line.lower()) and ("sip" in line.lower()) and not result.get("copyright"):
+            result["copyright"] = line.strip()
+
+    # Post-process authors
+    authors: List[str] = []
+    if author_lines:
+        # Join with spaces, then split by bullets or commas
+        # Preserve list items as separate authors when possible
+        normalized: List[str] = []
+        for entry in author_lines:
+            entry = entry.strip().lstrip("-• ")
+            if not entry:
+                continue
+            # Split on trailing commas, but keep lines that are clearly a single author
+            parts = [p for p in re.split(r",\s*(?![^()]*\))", entry) if p.strip()]
+            normalized.extend(parts if len(parts) > 1 else [entry])
+
+        cleaned: List[str] = []
+        for frag in normalized:
+            name = clean_author_fragment(frag)
+            if name and name.lower() not in {"authors", "author"}:
+                cleaned.append(name)
+        # Remove duplicates preserving order
+        seen = set()
+        for n in cleaned:
+            if n not in seen:
+                authors.append(n)
+                seen.add(n)
+
+    result["authors"] = authors
+    result["emails"] = sorted(emails)
+    return result
+
+
+def parse_directory(dir_path: Path, max_sip: int = 29) -> List[Dict[str, Optional[str]]]:
+    results: List[Dict[str, Optional[str]]] = []
+    # Discover sip-XXX directories
+    sip_dirs = []
+    for child in dir_path.iterdir():
+        if child.is_dir():
+            m = re.match(r"sip-(\d{3})$", child.name)
+            if m:
+                n = int(m.group(1))
+                if n <= max_sip:
+                    sip_dirs.append((n, child))
+    sip_dirs.sort(key=lambda t: t[0])
+
+    for n, sip_dir in sip_dirs:
+        sip_id = f"{n:03d}"
+        md_files = sorted(sip_dir.glob("*.md"))
+        if not md_files:
+            entry: Dict[str, Optional[str]] = {"sip": sip_id, "title": None, "type": None, "license": None, "authors": [], "emails": [], "copyright": None}
+        else:
+            content = md_files[0].read_text(encoding="utf-8", errors="ignore")
+            entry = parse_markdown_sip(content)
+            if not entry.get("sip"):
+                entry["sip"] = sip_id
+        results.append(entry)
+    return results
+
+
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Parse SIP text into JSON.")
-    parser.add_argument("--input", required=True, help="Path to SIP text file")
+    parser = argparse.ArgumentParser(description="Parse SIP sources into JSON.")
+    parser.add_argument("--input", required=True, help="Path to SIP text file or directory of SIPs")
     parser.add_argument("--output", required=False, help="Path to output JSON file")
     args = parser.parse_args()
 
     input_path = Path(args.input)
-    text = input_path.read_text(encoding="utf-8")
-    data = parse_sips(text)
+    if input_path.is_dir():
+        # Expecting a directory like sips-main/sips
+        data = parse_directory(input_path, max_sip=29)
+    else:
+        text = input_path.read_text(encoding="utf-8")
+        data = parse_sips(text)
 
     if args.output:
         output_path = Path(args.output)

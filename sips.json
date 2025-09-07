@@ -15,6 +15,21 @@
     "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP’s copyright"
   },
   {
+    "sip": "001",
+    "title": "Burn Election",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [
+      "Jude Nelson",
+      "Aaron Blankstein"
+    ],
+    "emails": [
+      "aaron@blockstack.com",
+      "jude@stacks.org"
+    ],
+    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP's copyright"
+  },
+  {
     "sip": "002",
     "title": "The Clarity Smart Contract Language",
     "type": "Consensus",
@@ -31,6 +46,19 @@
     "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP's copyright"
   },
   {
+    "sip": "003",
+    "title": "Stacks P2P Network",
+    "type": "Standard",
+    "license": "BSD 2-Clause",
+    "authors": [
+      "Jude Nelson"
+    ],
+    "emails": [
+      "jude@stacks.org"
+    ],
+    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP's copyright"
+  },
+  {
     "sip": "004",
     "title": "Cryptographic Commitment to Materialized Views",
     "type": "Consensus",
@@ -39,6 +67,21 @@
       "Jude Nelson"
     ],
     "emails": [
+      "jude@stacks.org"
+    ],
+    "copyright": null
+  },
+  {
+    "sip": "005",
+    "title": "Blocks, Transactions, and Accounts",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [
+      "Jude Nelson",
+      "Aaron Blankstein"
+    ],
+    "emails": [
+      "aaron@blockstack.com",
       "jude@stacks.org"
     ],
     "copyright": null
@@ -64,7 +107,15 @@
     "title": "Stacking Consensus",
     "type": "Consensus",
     "license": "BSD 2-Clause",
-    "authors": [],
+    "authors": [
+      "Muneeb Ali",
+      "Aaron Blankstein",
+      "Michael J. Freedman",
+      "Diwaker Gupta",
+      "Jude Nelson",
+      "Jesse Soslow",
+      "Patrick Stanley"
+    ],
     "emails": [
       "aaron@blockstack.com",
       "diwaker@blockstack.com",
@@ -127,7 +178,19 @@
     "title": "Burn Height Selection for a Network Upgrade to Introduce New Cost-Limits",
     "type": "Consensus",
     "license": "BSD 2-Clause",
-    "authors": [],
+    "authors": [
+      "* Asteria",
+      "* Aaron Blankstein",
+      "* Diwaker Gupta",
+      "* Hank Stoever",
+      "* Jason Lau",
+      "* Jude Nelson",
+      "* Ludovic Galabru",
+      "* Trevor Owens",
+      "* Xan Ditkoff",
+      "* Pavitthra Pandurangan",
+      "* Reed Rosenbluth"
+    ],
     "emails": [
       "aaron@hiro.so",
       "asteria@syvita.org",
@@ -159,6 +222,45 @@
       "jude@stacks.org"
     ],
     "copyright": "https://creativecommons.org/publicdomain/zero/1.0/. This SIP's copyright is held"
+  },
+  {
+    "sip": "015",
+    "title": "Stacks Upgrade of Proof-of-Transfer and Clarity",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [
+      "Aaron Blankstein",
+      "Mike Cohen",
+      "Greg Coppola",
+      "Brice Dobry",
+      "Hero Gamer",
+      "Matthew Little",
+      "Jenny Mith",
+      "Jude Nelson",
+      "Pavitthra Pandurangan",
+      "Jason Schrader",
+      "Rena Shah",
+      "Hank Stoever",
+      "Igor Sylvester",
+      "Jesse Wiley"
+    ],
+    "emails": [
+      "aaron@hiro.so",
+      "brice@hiro.so",
+      "greg@hiro.so",
+      "hank@mechanism.so",
+      "herogamerthesht572@gmail.com",
+      "igor@trustmachines.co",
+      "jason@joinfreehold.com",
+      "jenny@stacks.org",
+      "jude@stacks.org",
+      "jw@stacks.org",
+      "matthew@blockstack.com",
+      "mjoecohen@gmail.com",
+      "pavitthra@hiro.so",
+      "rena@trustmachines.co"
+    ],
+    "copyright": null
   },
   {
     "sip": "016",
@@ -223,11 +325,40 @@
     "copyright": "https://creativecommons.org/publicdomain/zero/1.0/ This SIP's copyright is held"
   },
   {
+    "sip": "021",
+    "title": "Fast and Reliable Blocks through PoX-assisted Block Propagation",
+    "type": "Consensus",
+    "license": "BSD 2-Clause",
+    "authors": [],
+    "emails": [
+      "aaron@hiro.so",
+      "ashton@trustmachines.co",
+      "brice@hiro.so",
+      "charlie@hiro.so",
+      "diwaker@hiro.so",
+      "jacinta@trustmachines.co",
+      "jason@joinfreehold.com",
+      "jnajera1917@gmail.com",
+      "joey@trustmachines.co",
+      "jude@stacks.org",
+      "marvin@ryder.id",
+      "mattystx@gmail.com",
+      "rafael@hiro.so"
+    ],
+    "copyright": null
+  },
+  {
     "sip": "022",
     "title": "Emergency Fix to PoX Stacking Increases",
     "type": "Consensus",
     "license": "BSD 2-Clause",
-    "authors": [],
+    "authors": [
+      "Aaron Blankstein",
+      "Brice Dobry",
+      "Friedger Müffke",
+      "Jude Nelson",
+      "Pavitthra Pandurangan"
+    ],
     "emails": [
       "aaron@hiro.so",
       "brice@hiro.so",
@@ -245,7 +376,11 @@
     "title": "Emergency Fix to Trait Invocation Behavior",
     "type": "Consensus",
     "license": "BSD 2-Clause",
-    "authors": [],
+    "authors": [
+      "Aaron Blankstein",
+      "Brice Dobry",
+      "Jude Nelson"
+    ],
     "emails": [
       "aaron@hiro.so",
       "brice@hiro.so",
@@ -261,7 +396,12 @@
     "title": "Emergency Fix to Data Validation and Serialization Behavior",
     "type": "Consensus",
     "license": "BSD 2-Clause",
-    "authors": [],
+    "authors": [
+      "Aaron Blankstein",
+      "Brice Dobry",
+      "Jude Nelson",
+      "Pavitthra Pandurangan"
+    ],
     "emails": [
       "aaron@hiro.so",
       "brice@hiro.so",
@@ -298,26 +438,70 @@
       "Vlad Bespalov"
     ],
     "emails": [
+      "jbencin@hiro.so",
+      "vlad@asigna.io"
+    ],
+    "copyright": null
+  },
+  {
+    "sip": "028",
+    "title": "Signer Criteria for sBTC, A Decentralized and Programmable Asset Backed 1:1 with BTC",
+    "type": "Operation",
+    "license": "BSD 2-Clause",
+    "authors": [
+      "Adriano Di Luzio )",
+      "Andre Serrano )",
+      "Ashton Stephens )",
+      "Daniel Jordon )",
+      "Friedger Müffke )",
+      "Jesus Najera )",
+      "Joey Yandle )",
+      "Jude Nelson )",
+      "Mårten Blankfors )",
+      "Tycho Onnasch )"
+    ],
+    "emails": [
       "adriano@bitcoinl2labs.com",
-      "alex@hiro.so",
       "andre@bitcoinl2labs.com",
       "ashton@trustmachines.co",
-      "brittany@lattice.vc",
       "daniel@trustmachines.co",
       "friedger@ryder.id",
-      "i.digg.tech@gmail.com",
       "jason@joinfreehold.com",
-      "jbencin@hiro.so",
-      "jesse@stacks.org",
       "jesus@stratalabs.xyz",
       "joey@trustmachines.co",
       "jude@stacks.org",
       "marten@trustmachines.co",
+      "tycho@zestprotocol.com"
+    ],
+    "copyright": null
+  },
+  {
+    "sip": "029",
+    "title": "Preserving Economic Incentives During Stacks Network Upgrades",
+    "type": "Consensus (hard fork)",
+    "license": "BSD 2-Clause",
+    "authors": [
+      "Alex Miller",
+      "Andre Serrano",
+      "Brittany Laughlin",
+      "Jesse Wiley",
+      "Jude Nelson",
+      "Philip De Smedt",
+      "Tycho Onnasch",
+      "Will Corcoran"
+    ],
+    "emails": [
+      "alex@hiro.so",
+      "andre@bitcoinl2labs.com",
+      "brittany@lattice.vc",
+      "i.digg.tech@gmail.com",
+      "jason@joinfreehold.com",
+      "jesse@stacks.org",
+      "jude@stacks.org",
       "mattystx@gmail.com",
       "mjoecohen@gmail.com",
       "philip@stackingdao.com",
       "tycho@zestprotocol.com",
-      "vlad@asigna.io",
       "will@stacks.org"
     ],
     "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP’s copyright"
