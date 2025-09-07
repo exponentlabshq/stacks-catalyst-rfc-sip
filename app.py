@@ -3,11 +3,16 @@ from http.server import SimpleHTTPRequestHandler
 from socketserver import TCPServer
 
 
+class RootHandler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == "/":
+            self.path = "/pre.html"
+        return super().do_GET()
+
+
 def main() -> None:
     port = int(os.environ.get("PORT", 8000))
-    # Serve files from repo root
-    handler = SimpleHTTPRequestHandler
-    with TCPServer(("0.0.0.0", port), handler) as httpd:
+    with TCPServer(("0.0.0.0", port), RootHandler) as httpd:
         httpd.serve_forever()
 
 
