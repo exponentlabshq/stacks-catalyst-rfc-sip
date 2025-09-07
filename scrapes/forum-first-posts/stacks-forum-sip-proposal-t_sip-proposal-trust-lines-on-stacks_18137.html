@@ -1,0 +1,126 @@
+<div class="row"><div class="topic-body clearfix"><div class="regular contents"><div class="cooked"><h1>
+<a name="trust-lines-on-stacks-1" class="anchor" href="#trust-lines-on-stacks-1"></a>TRUST LINES ON STACKS</h1>
+<p>Trust Lines on Stacks prevents hacks by preventing unauthorized transfers to accounts not on your wallet white list.</p>
+<h2>
+<a name="background-2" class="anchor" href="#background-2"></a>BACKGROUND</h2>
+<p>SIP-013 - Semi-fungible Tokens - was inspired by EIP-1155. What this tells us is that there are paradigms, features attributes and benefits that are useful from other chains to expand use cases with Stacks. Think of how Rome conquered Carthage by learning ship-building.</p>
+<p>Why am I telling you this? Well, XRP, which is one of the key competitors for DEFI overall, leverages Trust Lines to empower the ENTIRE DEFI LANDSCAPE on XRP. You can see the spec here: <a href="https://xrpl.org/docs/concepts/tokens/fungible-tokens/authorized-trust-lines" class="inline-onebox" rel="noopener nofollow ugc">Authorized Trust Lines</a></p>
+<h2>
+<a name="problem-worth-solving-job-to-be-done-3" class="anchor" href="#problem-worth-solving-job-to-be-done-3"></a>PROBLEM WORTH SOLVING / JOB-TO-BE-DONE</h2>
+<p>If there is a single barrier to onboarding new capital into Stacks, it’s hacks.</p>
+<p>And that’s why we created this SIP: Trust Lines on Stacks.</p>
+<p>The market on XRP has decided that Trust Lines are a core part of running a resilient DEFI Ecosystem. It stands to reason that the same market that enjoys XRP will like to configure their DEFI experience using the same paradigms they enjoy on XRP.</p>
+<p>So…Trust Lines on Stacks. It’s the way we open the floodgates to value flowing into Stacks.</p>
+<h2>
+<a name="demo-4" class="anchor" href="#demo-4"></a>Demo</h2>
+<p><a href="https://resilient-bombolone-da0704.netlify.app/" class="onebox" target="_blank" rel="noopener nofollow ugc">https://resilient-bombolone-da0704.netlify.app/</a></p><aside class="onebox allowlistedgeneric" data-onebox-src="https://harmonious-tour-434674.framer.app/">
+  <header class="source">
+      <img src="https://framerusercontent.com/images/MHYVUQMUli0aF9OBUEOgWhPIBfU.jpeg" class="site-icon" width="500" height="500">
+
+      <a href="https://harmonious-tour-434674.framer.app/" target="_blank" rel="noopener nofollow ugc">harmonious-tour-434674.framer.app</a>
+  </header>
+
+  <article class="onebox-body">
+    
+
+<h3><a href="https://harmonious-tour-434674.framer.app/" target="_blank" rel="noopener nofollow ugc">Trust Lines On Stacks | XRP Spec</a></h3>
+
+  <p>Trust Lines On Stacks</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<h2>
+<a name="tldr-5" class="anchor" href="#tldr-5"></a>TL;DR</h2>
+<p>TRUST LINES ENSURE THAT ONLY PEOPLE YOU TRUST CAN TRANSACT WITH YOU BY ENABLING WALLETS TO WHITELIST TRUSTED ACCOUNTS.</p>
+<h3>
+<a name="demo-links-6" class="anchor" href="#demo-links-6"></a>Demo Links:</h3>
+<p><a href="https://x.com/attractfund1ng/status/1883074256801800200" class="onebox" target="_blank" rel="noopener nofollow ugc">https://x.com/attractfund1ng/status/1883074256801800200</a><br>
+<a href="https://x.com/attractfund1ng/status/1885198910915743914" class="onebox" target="_blank" rel="noopener nofollow ugc">https://x.com/attractfund1ng/status/1885198910915743914</a><br>
+<a href="https://x.com/attractfund1ng/status/1884914063035060377" class="onebox" target="_blank" rel="noopener nofollow ugc">https://x.com/attractfund1ng/status/1884914063035060377</a></p>
+<h2>
+<a name="get-to-the-technical-point-already-7" class="anchor" href="#get-to-the-technical-point-already-7"></a>GET TO THE TECHNICAL POINT ALREADY</h2>
+<p>This SIP outlines a new Clarity library and corresponding functions for implementing Trust Lines on the Stacks blockchain. The Trust Lines mechanism would operate as a layer on top of existing token standards and would not require any consensus-breaking changes to the Stacks blockchain.</p>
+<p>The proposed Trust Lines system will include the following features:</p>
+<ul>
+<li>
+<strong>Trust Line Establishment</strong>: Users can establish a Trust Line for a specific token with another user by specifying the token, the counterparty, and the credit limit.</li>
+<li>
+<strong>Token Transfers via Trust Lines</strong>: Transfers of tokens between accounts with established Trust Lines can occur without requiring immediate on-chain settlements. The system will maintain a balance ledger for each Trust Line, tracking credits and debits.</li>
+<li>
+<strong>Trust Line Modification</strong>: Users can modify the credit limit of an existing Trust Line, either increasing or decreasing it.</li>
+<li>
+<strong>Trust Line Closure</strong>: Users can close a Trust Line, settling any outstanding balances using on-chain token transfers.</li>
+</ul>
+<p>The Clarity library will provide the following functions:</p>
+<ul>
+<li>
+<strong>establish-trust-line</strong>: Creates a new Trust Line between two accounts.</li>
+<li>
+<strong>transfer-via-trust-line</strong>: Executes a token transfer through an existing Trust Line.</li>
+<li>
+<strong>modify-trust-line</strong>: Changes the credit limit of a Trust Line.</li>
+<li>
+<strong>close-trust-line</strong>: Settles outstanding balances and closes a Trust Line.</li>
+</ul>
+<h2>
+<a name="features-attributes-and-benefits-for-stacks-by-introducing-trust-lines-8" class="anchor" href="#features-attributes-and-benefits-for-stacks-by-introducing-trust-lines-8"></a>FEATURES ATTRIBUTES AND BENEFITS FOR STACKS BY INTRODUCING TRUST LINES</h2>
+<ul>
+<li>Increased Flexibility: Trust Lines provide a more granular and customizable approach to managing token relationships between users.</li>
+</ul>
+<h2>
+<a name="github-9" class="anchor" href="#github-9"></a>GitHub</h2>
+<aside class="onebox githubblob" data-onebox-src="https://github.com/unicornlaunching/SyndiTheCommunityCoPilotforStacks/blob/main/SIP_trust_lines_xrp.md">
+  <header class="source">
+
+      <a href="https://github.com/unicornlaunching/SyndiTheCommunityCoPilotforStacks/blob/main/SIP_trust_lines_xrp.md" target="_blank" rel="noopener nofollow ugc">github.com</a>
+  </header>
+
+  <article class="onebox-body">
+    <h4><a href="https://github.com/unicornlaunching/SyndiTheCommunityCoPilotforStacks/blob/main/SIP_trust_lines_xrp.md" target="_blank" rel="noopener nofollow ugc">unicornlaunching/SyndiTheCommunityCoPilotforStacks/blob/main/SIP_trust_lines_xrp.md</a></h4>
+
+
+      <pre><code class="lang-md"># KEEP SHIT OUTCHA WALLET
+## TRUST LINES ENSURE THAT ONLY PEOPLE YOU TRUST CAN TRANSACT WITH YOU
+
+# TRUST LINES ON STACKS | XRP IMPLEMENTATION
+
+###### SIP TYPE: Non-Consensus Breaking Change
+
+## EXECUTIVE SUMMARY
+
+This SIP proposes the introduction of Trust Lines to the Stacks blockchain as a non-consensus breaking mechanism to facilitate flexible and trust-based token management within the Stacks ecosystem.
+
+## GET TO THE TECHNICAL POINT ALREADY
+
+This SIP outlines a new Clarity library and corresponding functions for implementing Trust Lines on the Stacks blockchain. The Trust Lines mechanism would operate as a layer on top of existing token standards and would not require any consensus-breaking changes to the Stacks blockchain.
+
+The proposed Trust Lines system will include the following features:
+- **Trust Line Establishment**: Users can establish a Trust Line for a specific token with another user by specifying the token, the counterparty, and the credit limit.
+- **Token Transfers via Trust Lines**: Transfers of tokens between accounts with established Trust Lines can occur without requiring immediate on-chain settlements. The system will maintain a balance ledger for each Trust Line, tracking credits and debits.
+- **Trust Line Modification**: Users can modify the credit limit of an existing Trust Line, either increasing or decreasing it.
+- **Trust Line Closure**: Users can close a Trust Line, settling any outstanding balances using on-chain token transfers.
+</code></pre>
+
+
+
+  This file has been truncated. <a href="https://github.com/unicornlaunching/SyndiTheCommunityCoPilotforStacks/blob/main/SIP_trust_lines_xrp.md" target="_blank" rel="noopener nofollow ugc">show original</a>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+</div></div></div></div>

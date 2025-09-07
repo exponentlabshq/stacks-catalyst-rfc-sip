@@ -1,0 +1,16 @@
+<div class="row"><div class="topic-body clearfix"><div class="regular contents"><div class="cooked"><p>Currently, users have to wait for 1 cycle without rewards when they want to change the pool, decrease the stacking amount or change the PoX reward address. Therefore, it is expensive to do any of these actions. For large stackers or pools, this can cost tens of thousands of dollars. When we don’t have a cool down cycle anymore, there would be also more competition between pools.</p>
+<p>We can remove the cool down cycle by the following changes:</p>
+<ul>
+<li>fix the pox anchor block in the last 10 blocks, currently, 100 block. The prepare phase would be reduced to 10 blocks.</li>
+<li>unlock tokens at the beginning of the current prepare phase (100 last block), currently at block 0 of the next cycle.</li>
+</ul>
+<p>That gives users 90 blocks to change any of their stacking settings.</p>
+<p>This also has the following impact:</p>
+<ul>
+<li>New stackers can join stacking until 10 blocks (currently 100 blocks) before the next cycle.</li>
+<li>Burn phase is reduced from 100 to 10 blocks. That would increase the number of rewards slots to 4180 slots and reduce the slot price (minimum stacked stx for 1 slot).</li>
+</ul>
+<p>The key change is to unlock stx earlier than currently. We did that for the hard forks already when changing pox contracts: unlocked at the beginning and continued to receive rewards the whole cycle.</p>
+<p>I have the feeling that the proposed changes are manageable short term. However, I might be wrong, and it is much harder to implement than I think.</p>
+<p>This proposal requires a hard fork.</p>
+<p>This proposal is in addition to the simplified stacking proposal in <a href="https://forum.stacks.org/t/stacks-roadmap-and-product-vision-update/17852/13" class="inline-onebox">Stacks Roadmap and Product Vision Update - #13 by friedger</a></p></div></div></div></div>
