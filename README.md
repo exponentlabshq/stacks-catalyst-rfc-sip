@@ -72,6 +72,11 @@ open http://localhost:8000/index.html
 
 - **GitHub Pages**: push these files to a public repo and enable Pages (root)
 - **Static hosts**: any CDN/static host will work as-is
+- **Railway**: deploy with Nixpacks. This repo includes `nixpacks.toml` to serve via Python's http.server.
+  1) Create new project → Deploy from GitHub
+  2) Set service root to repo root
+  3) Confirm detected Start Command: `python3 -m http.server $PORT --bind 0.0.0.0`
+  4) Deploy; open the assigned URL
 
 ## 🧪 Troubleshooting
 
