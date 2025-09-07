@@ -12,7 +12,8 @@
       "jude@stacks.org",
       "yukanliao@gmail.com"
     ],
-    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP’s copyright"
+    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP’s copyright",
+    "path": "sips-main/sips/sip-000/sip-000-stacks-improvement-proposal-process.md"
   },
   {
     "sip": "001",
@@ -27,7 +28,8 @@
       "aaron@blockstack.com",
       "jude@stacks.org"
     ],
-    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP's copyright"
+    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP's copyright",
+    "path": "sips-main/sips/sip-001/sip-001-burn-election.md"
   },
   {
     "sip": "002",
@@ -43,7 +45,8 @@
       "jude@stacks.org",
       "ludo@blockstack.com"
     ],
-    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP's copyright"
+    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP's copyright",
+    "path": "sips-main/sips/sip-002/sip-002-smart-contract-language.md"
   },
   {
     "sip": "003",
@@ -56,7 +59,8 @@
     "emails": [
       "jude@stacks.org"
     ],
-    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP's copyright"
+    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP's copyright",
+    "path": "sips-main/sips/sip-003/sip-003-peer-network.md"
   },
   {
     "sip": "004",
@@ -69,7 +73,8 @@
     "emails": [
       "jude@stacks.org"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-004/sip-004-materialized-view.md"
   },
   {
     "sip": "005",
@@ -84,7 +89,8 @@
       "aaron@blockstack.com",
       "jude@stacks.org"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-005/sip-005-blocks-and-transactions.md"
   },
   {
     "sip": "006",
@@ -100,7 +106,8 @@
       "jude@stacks.org",
       "reed@blockstack.com"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-006/sip-006-runtime-cost-assessment.md"
   },
   {
     "sip": "007",
@@ -126,7 +133,8 @@
       "muneeb@blockstack.com",
       "patrick@blockstack.com"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-007/sip-007-stacking-consensus.md"
   },
   {
     "sip": "008",
@@ -140,7 +148,8 @@
       "aaron@blockstack.com",
       "jude@stacks.org"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-008/sip-008-analysis-cost-assessment.md"
   },
   {
     "sip": "009",
@@ -155,7 +164,8 @@
       "jude@stacks.org",
       "mail@friedger.de"
     ],
-    "copyright": "This SIP’s copyright is held by the Stacks Open Internet Foundation."
+    "copyright": "This SIP’s copyright is held by the Stacks Open Internet Foundation.",
+    "path": "sips-main/sips/sip-009/sip-009-nft-standard.md"
   },
   {
     "sip": "010",
@@ -171,7 +181,8 @@
       "jude@stacks.org",
       "psq@nanorails.com"
     ],
-    "copyright": "This SIP’s copyright is held by the Stacks Open Internet Foundation."
+    "copyright": "This SIP’s copyright is held by the Stacks Open Internet Foundation.",
+    "path": "sips-main/sips/sip-010/sip-010-fungible-token-standard.md"
   },
   {
     "sip": "012",
@@ -207,7 +218,8 @@
       "trevor@stacks.ac",
       "xan@daemontechnologies.co"
     ],
-    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/ This SIP's copyright is held"
+    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/ This SIP's copyright is held",
+    "path": "sips-main/sips/sip-012/sip-012-cost-limits-network-upgrade.md"
   },
   {
     "sip": "013",
@@ -221,7 +233,8 @@
       "brice@hiro.so",
       "jude@stacks.org"
     ],
-    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/. This SIP's copyright is held"
+    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/. This SIP's copyright is held",
+    "path": "sips-main/sips/sip-013/sip-013-semi-fungible-token-standard.md"
   },
   {
     "sip": "015",
@@ -260,7 +273,8 @@
       "pavitthra@hiro.so",
       "rena@trustmachines.co"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-015/sip-015-network-upgrade.md"
   },
   {
     "sip": "016",
@@ -276,7 +290,8 @@
       "jude@stacks.org",
       "mail@friedger.de"
     ],
-    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/ This SIP’s copyright is held"
+    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/ This SIP’s copyright is held",
+    "path": "sips-main/sips/sip-016/sip-016-token-metadata.md"
   },
   {
     "sip": "018",
@@ -289,7 +304,8 @@
     "emails": [
       "jude@stacks.org"
     ],
-    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/ This SIP's copyright is held"
+    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/ This SIP's copyright is held",
+    "path": "sips-main/sips/sip-018/sip-018-signed-structured-data.md"
   },
   {
     "sip": "019",
@@ -306,7 +322,8 @@
       "matt@hiro.so",
       "rafael@hiro.so"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-019/sip-019-token-metadata-update-notifications.md"
   },
   {
     "sip": "020",
@@ -322,7 +339,8 @@
       "jesse@stacks.org",
       "jude@stacks.org"
     ],
-    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/ This SIP's copyright is held"
+    "copyright": "https://creativecommons.org/publicdomain/zero/1.0/ This SIP's copyright is held",
+    "path": "sips-main/sips/sip-020/sip-020-bitwise-ops.md"
   },
   {
     "sip": "021",
@@ -345,7 +363,8 @@
       "mattystx@gmail.com",
       "rafael@hiro.so"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-021/sip-021-nakamoto.md"
   },
   {
     "sip": "022",
@@ -369,7 +388,8 @@
       "pavi@stacks.org",
       "rafael@hiro.so"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-022/sip-022-emergency-pox-fix.md"
   },
   {
     "sip": "023",
@@ -389,7 +409,8 @@
       "jude@stacks.org",
       "rafael@hiro.so"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-023/sip-023-emergency-fix-traits.md"
   },
   {
     "sip": "024",
@@ -409,7 +430,8 @@
       "jude@stacks.org",
       "pavitthra@stacks.org"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-024/sip-024-least-supertype-fix.md"
   },
   {
     "sip": "025",
@@ -426,7 +448,8 @@
       "joey@trustmachines.co",
       "jude@stacks.org"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-025/sip-025-iterating-towards-weighted-schnorr-threshold-signatures.md"
   },
   {
     "sip": "027",
@@ -441,7 +464,8 @@
       "jbencin@hiro.so",
       "vlad@asigna.io"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-027/sip-027-non-sequential-multisig-transactions.md"
   },
   {
     "sip": "028",
@@ -473,7 +497,8 @@
       "marten@trustmachines.co",
       "tycho@zestprotocol.com"
     ],
-    "copyright": null
+    "copyright": null,
+    "path": "sips-main/sips/sip-028/sip-028-sbtc_peg.md"
   },
   {
     "sip": "029",
@@ -504,6 +529,7 @@
       "tycho@zestprotocol.com",
       "will@stacks.org"
     ],
-    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP’s copyright"
+    "copyright": "available at https://opensource.org/licenses/BSD-2-Clause.  This SIP’s copyright",
+    "path": "sips-main/sips/sip-029/sip-029-halving-alignment.md"
   }
 ]

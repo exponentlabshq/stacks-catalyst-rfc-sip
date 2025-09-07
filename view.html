@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SIP Viewer</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      .viewer { max-width: 900px; margin: 24px auto; padding: 0 24px; }
+      .prose { line-height: 1.6; }
+      .prose h1, .prose h2, .prose h3 { margin-top: 1.6em; }
+      .prose pre { overflow: auto; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-weak); }
+      .back { display: inline-block; margin: 16px 0; color: var(--muted); text-decoration: none; }
+      .back:hover { color: var(--text); }
+    </style>
+  </head>
+  <body>
+    <main class="viewer">
+      <a class="back" href="index.html">← Back</a>
+      <article id="content" class="prose"></article>
+    </main>
+    <script type="module">
+      const params = new URLSearchParams(location.search);
+      const src = params.get('src');
+      const el = document.getElementById('content');
+      if (!src) { el.textContent = 'Missing src param'; throw new Error('missing src'); }
+      const abs = src; // served same-origin
+
+      const [{ default: marked }, { default: DOMPurify }] = await Promise.all([
+        import('https://cdn.jsdelivr.net/npm/marked@12.0.2/lib/marked.esm.js'),
+        import('https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js'),
+      ]);
+
+      // Ensure relative links/media remain relative to the md file path
+      const base = abs.split('/').slice(0, -1).join('/');
+      const rewrite = (html) => html.replaceAll('src="', `src="${base}/`).replaceAll('href="./', `href="${base}/`).replaceAll('href="', (m) => m);
+
+      const res = await fetch(abs, { cache: 'no-store' });
+      if (!res.ok) { el.textContent = 'Failed to load markdown'; throw new Error(res.statusText); }
+      const md = await res.text();
+      const rawHtml = marked.parse(md);
+      const safe = DOMPurify.sanitize(rewrite(rawHtml));
+      el.innerHTML = safe;
+    </script>
+  </body>
+  </html>
+
+

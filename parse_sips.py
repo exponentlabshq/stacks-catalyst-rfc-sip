@@ -134,6 +134,7 @@ def parse_markdown_sip(text: str) -> Dict[str, Optional[str]]:
         "authors": [],
         "emails": [],
         "copyright": None,
+        "path": None,
     }
 
     emails: set = set()
@@ -245,6 +246,9 @@ def parse_directory(dir_path: Path, max_sip: int = 29) -> List[Dict[str, Optiona
             entry = parse_markdown_sip(content)
             if not entry.get("sip"):
                 entry["sip"] = sip_id
+            # store relative path including sips-main/sips/... for serving
+            rel_path = f"{dir_path.parent.name}/{dir_path.name}/{sip_dir.name}/{md_files[0].name}"
+            entry["path"] = rel_path
         results.append(entry)
     return results
 

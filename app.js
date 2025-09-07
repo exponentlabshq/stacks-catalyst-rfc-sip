@@ -57,10 +57,12 @@ function renderCard(item) {
   const typeChip = item.type ? `<span class="chip" title="Type"><span class="dot"></span>${escapeHTML(item.type)}</span>` : "";
   const licenseChip = item.license ? `<span class="chip" title="License">${escapeHTML(item.license)}</span>` : "";
 
+  const link = item.path ? `view.html?src=${encodeURIComponent(item.path)}` : null;
+  const titleHtml = link ? `<a href="${link}">${escapeHTML(item.title || "Untitled")}</a>` : escapeHTML(item.title || "Untitled");
   return `
     <article class="card" tabindex="0" aria-label="SIP ${escapeHTML(item.sip)}: ${escapeHTML(item.title || "Untitled")}">
       <div class="sip">SIP ${escapeHTML(item.sip)}</div>
-      <h2 class="title">${escapeHTML(item.title || "Untitled")}</h2>
+      <h2 class="title">${titleHtml}</h2>
       <div class="meta">${typeChip}${licenseChip}</div>
       ${authors ? `<div class="authors">${authors}</div>` : ""}
       ${emails ? `<div class="emails">${emails}</div>` : ""}
