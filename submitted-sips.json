@@ -1,0 +1,74 @@
+[
+  {
+    "id": "sip-031-demo",
+    "sip": "031",
+    "created": "2025-07-16",
+    "title": "Stacks Endowment Growth Round and Ecosystem Acceleration",
+    "consideration": ["Economics", "Technical", "Governance"],
+    "type": "Consensus (hard fork)",
+    "status": "Draft",
+    "license": "BSD 2-Clause",
+    "authors": [
+      { "name": "Alex Example", "email": "alex@example.com" },
+      { "name": "Jordan Example", "email": "jordan@example.com" }
+    ],
+    "signoff": [
+      { "name": "Reviewer One", "email": "reviewer1@example.com", "role": "Technical CAB" },
+      { "name": "Reviewer Two", "email": "reviewer2@example.com", "role": "Governance CAB" }
+    ],
+    "discussions": "https://forum.stacks.org/t/example-sip-discussion",
+    "abstract": "This SIP proposes establishing a Stacks Endowment funded over five years to accelerate ecosystem growth, integrations, and incentives with minimal changes to inflation while preserving network sustainability.",
+    "introduction": "As Stacks adoption and sBTC TVL expand, scalable resources are required to support builders, integrations, and protocol improvements.",
+    "problem": "Funding pathways are fragmented and undersized for upcoming opportunities in DeFi, integrations, and growth.",
+    "solution": "Create a time-bound Endowment with transparent governance to fund growth priorities while keeping inflation below top-50 median.",
+    "specification": "### Endowment Structure\n- Duration: 5 years\n- Target Size: 500M STX\n- Governance: Appointments Committee -> Treasury Committee\n\n### Use of Funds\n- Ecosystem incentives\n- Integrations and exchange support\n- Builder grants and security\n\n### Reporting\n- Quarterly public reporting and audits",
+    "related": [
+      "SIP-007 (Stacking Consensus)",
+      "SIP-021 (Nakamoto Upgrade)",
+      "sBTC design principles and ecosystem growth"
+    ],
+    "backcompat": "Economic changes are forward-looking; no breaking changes to existing smart contracts.",
+    "activation": "#### Voting\n- Snapshot voting for liquid STX; Stacking voting for locked STX\n\n#### Timeline\n- Hard fork height announced with final binaries",
+    "refs": [
+      "Reference Implementation: https://github.com/example/repo/pull/123",
+      "Governance Docs: https://stacks.org",
+      "```clarity\n(define-trait sip010-ft-standard\n  (\n    (transfer (uint principal principal) (response bool uint))\n    (get-balance (principal) (response uint uint))\n  )\n)\n```",
+      "```clarity\n(define-public (demo-transfer (amount uint) (sender principal) (recipient principal))\n  (begin (print { amount: amount, to: recipient }) (ok true))\n)\n```"
+    ],
+    "markdown": "# Preamble\n\n**SIP Number:** 031\n\n**Title:** Stacks Endowment Growth Round and Ecosystem Acceleration\n\n**Authors:**\n- Alex Example (alex@example.com)\n- Jordan Example (jordan@example.com)\n\n**Consideration:** Economics, Technical, Governance\n\n**Type:** Consensus (hard fork)\n\n**Status:** Draft\n\n**Created:** 2025-07-16\n\n**License:** BSD 2-Clause\n\n**Sign-off:**\n- Reviewer One reviewer1@example.com (Technical CAB)\n- Reviewer Two reviewer2@example.com (Governance CAB)\n\n**Discussions-To:**\n- https://forum.stacks.org/t/example-sip-discussion\n\n## Abstract\n\nThis SIP proposes establishing a Stacks Endowment funded over five years...\n\n## Introduction\n\nAs Stacks adoption and sBTC TVL expand...\n\n## Problem Statement\n\nFunding pathways are fragmented...\n\n## Proposed Solution\n\nCreate a time-bound Endowment...\n\n# Specification\n\n### Endowment Structure\n- Duration: 5 years\n- Target Size: 500M STX\n- Governance: Appointments Committee -> Treasury Committee\n\n### Use of Funds\n- Ecosystem incentives\n- Integrations and exchange support\n- Builder grants and security\n\n### Reporting\n- Quarterly public reporting and audits\n\n# Related Work\n\n- SIP-007 (Stacking Consensus)\n- SIP-021 (Nakamoto Upgrade)\n- sBTC design principles and ecosystem growth\n\n# Backwards Compatibility\n\nEconomic changes are forward-looking; no breaking changes...\n\n# Activation\n\n#### Voting\n- Snapshot voting for liquid STX; Stacking voting for locked STX\n\n#### Timeline\n- Hard fork height announced with final binaries\n\n# Reference Implementations\n\n- Reference Implementation: https://github.com/example/repo/pull/123\n- Governance Docs: https://stacks.org\n\n```clarity\n(define-trait sip010-ft-standard\n  (\n    (transfer (uint principal principal) (response bool uint))\n    (get-balance (principal) (response uint uint))\n  )\n)\n```\n\n```clarity\n(define-public (demo-transfer (amount uint) (sender principal) (recipient principal))\n  (begin (print { amount: amount, to: recipient }) (ok true))\n)\n```",
+    "votes": { "up": 123, "down": 4 },
+    "comments": 12
+  },
+  {
+    "id": "sip-030-ideas",
+    "sip": "030",
+    "created": "2025-06-10",
+    "title": "Dual Stacking and sBTC Yield Mechanisms (Concept)",
+    "consideration": ["Economics"],
+    "type": "Operation",
+    "status": "Draft",
+    "license": "BSD 2-Clause",
+    "authors": [ { "name": "Builder One", "email": "b1@example.com" } ],
+    "abstract": "Concept note exploring yield alignment between STX and sBTC.",
+    "markdown": "# Preamble\n\n**SIP Number:** 030\n\n**Title:** Dual Stacking and sBTC Yield Mechanisms (Concept)\n\n## Abstract\nConcept note...",
+    "votes": { "up": 45, "down": 2 },
+    "comments": 5
+  },
+  {
+    "id": "sip-029-followup",
+    "sip": "029",
+    "created": "2024-11-20",
+    "title": "SIP-029 Follow-up: Emissions Schedule Clarifications",
+    "consideration": ["Economics", "Governance"],
+    "type": "Consensus (hard fork)",
+    "status": "Discussion",
+    "license": "BSD 2-Clause",
+    "authors": [ { "name": "Analyst A", "email": "aa@example.com" } ],
+    "abstract": "Clarifies timelines and metrics post SIP-029 activation.",
+    "markdown": "# Preamble\n\n**SIP Number:** 029\n\n**Title:** SIP-029 Follow-up...",
+    "votes": { "up": 78, "down": 11 },
+    "comments": 21
+  }
+]
+
+

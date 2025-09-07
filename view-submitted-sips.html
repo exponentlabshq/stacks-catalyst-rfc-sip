@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Submitted SIPs</title>
+    <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      .list { max-width: 900px; margin: 20px auto; padding: 0 24px; }
+      .item { display: grid; grid-template-columns: 56px 1fr; gap: 14px; padding: 16px 12px; border-bottom: 1px solid var(--border); }
+      .votes { display: grid; place-items: center; width: 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); }
+      .vote-btn { cursor: pointer; user-select: none; font-size: 18px; line-height: 1; padding: 6px; color: var(--muted); }
+      .vote-btn.active { color: var(--text); }
+      .score { font-weight: 600; }
+      .title a { text-decoration: none; }
+      .meta { color: var(--muted); font-size: 12px; margin-top: 4px; }
+      .actions { display: flex; gap: 12px; margin-top: 10px; font-size: 12px; }
+      .chip { height: 24px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-weak); display: inline-flex; align-items: center; }
+      .toolbar { display:flex; gap:10px; align-items:center; justify-content: space-between; margin: 14px auto; max-width: 900px; padding: 0 24px; }
+      .toolbar a { text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <div class="hero">
+          <h1 class="title">Submitted SIPs</h1>
+          <p class="subtitle">Reddit-style voting. Local-only (simulated) upvotes/downvotes.</p>
+        </div>
+      </div>
+    </header>
+
+    <nav class="toolbar">
+      <div>
+        <a class="chip" href="pre.html">← Home</a>
+        <a class="chip" href="index.html">SIPs Explorer</a>
+        <a class="chip" href="submit-sip.html">Submit a SIP</a>
+      </div>
+      <div>
+        <a class="chip" href="#" id="sortHot">Hot</a>
+        <a class="chip" href="#" id="sortTop">Top</a>
+        <a class="chip" href="#" id="sortNew">New</a>
+      </div>
+    </nav>
+
+    <main class="list" id="list" aria-live="polite"></main>
+
+    <script>
+      const $ = (s,r=document)=>r.querySelector(s);
+      const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
+      const key = 'submittedVotesV1';
+      const getVotes = () => JSON.parse(localStorage.getItem(key) || '{}');
+      const setVotes = (m) => localStorage.setItem(key, JSON.stringify(m));
+
+      let data = [];
+      let mode = 'hot';
+
+      const scoreOf = (it) => {
+        const local = getVotes()[it.id];
+        const base = (it.votes?.up || 0) - (it.votes?.down || 0);
+        const delta = local === 1 ? 1 : local === -1 ? -1 : 0;
+        return base + delta;
+      };
+
+      function sortData() {
+        if (mode === 'top') return data.sort((a,b)=>scoreOf(b)-scoreOf(a));
+        if (mode === 'new') return data.sort((a,b)=>new Date(b.created)-new Date(a.created));
+        // simple hot: score + recency weight
+        return data.sort((a,b)=> (scoreOf(b) + freshness(b)) - (scoreOf(a) + freshness(a)));
+      }
+
+      const freshness = (it) => {
+        const days = Math.max(1, (Date.now()-new Date(it.created).getTime())/86400000);
+        return 1/Math.log2(3+days); // mild boost for newer
+      };
+
+      function renderItem(it){
+        const s = scoreOf(it);
+        const local = getVotes()[it.id] || 0;
+        const chips = (it.consideration||[]).map(c=>`<span class="chip">${c}</span>`).join(' ');
+        return `
+          <article class="item" data-id="${it.id}">
+            <div class="votes">
+              <div class="vote-btn ${local===1?'active':''}" data-vote="up">▲</div>
+              <div class="score">${s}</div>
+              <div class="vote-btn ${local===-1?'active':''}" data-vote="down">▼</div>
+            </div>
+            <div>
+              <h3 class="title"><a href="#">[SIP-${it.sip || 'TBD'}] ${it.title}</a></h3>
+              <div class="meta">${new Date(it.created).toLocaleDateString()} • ${it.type || ''} • ${it.status || ''}</div>
+              <div class="meta">${chips}</div>
+              <div class="actions">
+                <a href="#" data-action="view">View Markdown</a>
+                <a href="#" data-action="copy">Copy Markdown</a>
+                <a href="#" data-action="discuss">Discuss</a>
+              </div>
+            </div>
+          </article>
+        `;
+      }
+
+      function render(){
+        const list = $('#list');
+        list.innerHTML = sortData().map(renderItem).join('');
+        // attach handlers
+        $$('.item').forEach(card => {
+          const id = card.getAttribute('data-id');
+          card.querySelector('[data-vote="up"]').onclick = () => vote(id, 1);
+          card.querySelector('[data-vote="down"]').onclick = () => vote(id, -1);
+          card.querySelector('[data-action="view"]').onclick = () => openMarkdown(id);
+          card.querySelector('[data-action="copy"]').onclick = () => copyMarkdown(id);
+          card.querySelector('[data-action="discuss"]').onclick = () => openDiscuss(id);
+        });
+      }
+
+      function vote(id, dir){
+        const votes = getVotes();
+        votes[id] = (votes[id] === dir) ? 0 : dir; // toggle
+        setVotes(votes);
+        render();
+      }
+
+      function findItem(id){ return data.find(x => x.id === id); }
+
+      function openMarkdown(id){
+        const it = findItem(id); if (!it) return;
+        const blob = new Blob([it.markdown || it.abstract || it.title], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        window.open(url, '_blank');
+      }
+
+      async function copyMarkdown(id){
+        const it = findItem(id); if (!it) return;
+        const md = it.markdown || it.abstract || it.title;
+        try { await navigator.clipboard.writeText(md); alert('Markdown copied'); }
+        catch { const ta=document.createElement('textarea'); ta.value=md; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); alert('Markdown copied (fallback)'); }
+      }
+
+      function openDiscuss(id){
+        const it = findItem(id); if (!it) return;
+        const url = it.discussions || 'https://forum.stacks.org';
+        window.open(url, '_blank');
+      }
+
+      async function init(){
+        const res = await fetch('submitted-sips.json', { cache: 'no-store' });
+        data = await res.json();
+        render();
+      }
+
+      $('#sortHot').onclick = (e)=>{ e.preventDefault(); mode='hot'; render(); };
+      $('#sortTop').onclick = (e)=>{ e.preventDefault(); mode='top'; render(); };
+      $('#sortNew').onclick = (e)=>{ e.preventDefault(); mode='new'; render(); };
+
+      init();
+    </script>
+  </body>
+  </html>
+
+
