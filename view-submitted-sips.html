@@ -7,18 +7,26 @@
     <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
     <link rel="stylesheet" href="./styles.css" />
     <style>
-      .list { max-width: 900px; margin: 20px auto; padding: 0 24px; }
-      .item { display: grid; grid-template-columns: 56px 1fr; gap: 14px; padding: 16px 12px; border-bottom: 1px solid var(--border); }
-      .votes { display: grid; place-items: center; width: 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); }
-      .vote-btn { cursor: pointer; user-select: none; font-size: 18px; line-height: 1; padding: 6px; color: var(--muted); }
-      .vote-btn.active { color: var(--text); }
-      .score { font-weight: 600; }
-      .title a { text-decoration: none; }
-      .meta { color: var(--muted); font-size: 12px; margin-top: 4px; }
-      .actions { display: flex; gap: 12px; margin-top: 10px; font-size: 12px; }
-      .chip { height: 24px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-weak); display: inline-flex; align-items: center; }
-      .toolbar { display:flex; gap:10px; align-items:center; justify-content: space-between; margin: 14px auto; max-width: 900px; padding: 0 24px; }
-      .toolbar a { text-decoration: none; }
+      body { background: #dae0e6; }
+      .feed { max-width: 740px; margin: 16px auto; padding: 0 12px; }
+      .post { display: grid; grid-template-columns: 40px auto; background: #fff; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px; }
+      .vote-col { background: #f8f9fa; display: grid; align-content: center; justify-items: center; padding: 8px 0; border-right: 1px solid #ededed; }
+      .vote-btn { cursor: pointer; user-select: none; font-size: 18px; line-height: 1; padding: 4px; color: #878a8c; }
+      .vote-btn.up.active { color: #ff4500; }
+      .vote-btn.down.active { color: #7193ff; }
+      .score { font-weight: 600; color: #1a1a1b; font-size: 13px; margin: 4px 0; }
+      .post-body { padding: 8px 10px 10px 10px; }
+      .post-title { margin: 2px 0 4px 0; font-size: 16px; font-weight: 600; }
+      .post-title a { color: #1a1a1b; text-decoration: none; }
+      .post-title a:hover { text-decoration: underline; }
+      .post-meta { color: #7c7c7c; font-size: 12px; }
+      .tag { display: inline-block; background: #f6f7f8; color: #636669; border: 1px solid #e2e3e5; padding: 2px 6px; border-radius: 12px; font-size: 11px; margin-right: 6px; }
+      .action-bar { display: flex; gap: 16px; color: #7c7c7c; font-size: 12px; margin-top: 8px; }
+      .action { cursor: pointer; text-decoration: none; color: inherit; }
+      .action:hover { color: #1a1a1b; }
+      .toolbar { display:flex; gap:10px; align-items:center; justify-content: space-between; margin: 10px auto; max-width: 740px; padding: 0 12px; }
+      .tab { display:inline-flex; align-items:center; padding: 6px 10px; border: 1px solid #e2e3e5; background:#fff; color:#1a1a1b; border-radius: 4px; text-decoration:none; font-size: 13px; }
+      .tab.active { border-color:#ff4500; }
     </style>
   </head>
   <body>
@@ -44,7 +52,7 @@
       </div>
     </nav>
 
-    <main class="list" id="list" aria-live="polite"></main>
+    <main class="feed" id="list" aria-live="polite"></main>
 
     <script>
       const $ = (s,r=document)=>r.querySelector(s);
@@ -78,33 +86,17 @@
       function renderItem(it){
         const s = scoreOf(it);
         const local = getVotes()[it.id] || 0;
-        const chips = (it.consideration||[]).map(c=>`<span class="chip">${c}</span>`).join(' ');
+        const tags = (it.consideration||[]).map(c=>`<span class=\"tag\">${c}</span>`).join(' ');
+        const comments = it.comments || 0;
         return `
-          <article class="item" data-id="${it.id}">
-            <div class="votes">
-              <div class="vote-btn ${local===1?'active':''}" data-vote="up">▲</div>
-              <div class="score">${s}</div>
-              <div class="vote-btn ${local===-1?'active':''}" data-vote="down">▼</div>
-            </div>
-            <div>
-              <h3 class="title"><a href="#">[SIP-${it.sip || 'TBD'}] ${it.title}</a></h3>
-              <div class="meta">${new Date(it.created).toLocaleDateString()} • ${it.type || ''} • ${it.status || ''}</div>
-              <div class="meta">${chips}</div>
-              <div class="actions">
-                <a href="#" data-action="view">View Markdown</a>
-                <a href="#" data-action="copy">Copy Markdown</a>
-                <a href="#" data-action="discuss">Discuss</a>
-              </div>
-            </div>
-          </article>
-        `;
+          <article class=\"post\" data-id=\"${it.id}\">\n            <div class=\"vote-col\">\n              <div class=\"vote-btn up ${local===1?'active':''}\" data-vote=\"up\">▲</div>\n              <div class=\"score\">${s}</div>\n              <div class=\"vote-btn down ${local===-1?'active':''}\" data-vote=\"down\">▼</div>\n            </div>\n            <div class=\"post-body\">\n              <div class=\"post-title\"><a href=\"#\">[SIP-${it.sip || 'TBD'}] ${it.title}</a></div>\n              <div class=\"post-meta\">${new Date(it.created).toLocaleDateString()} • ${it.type || ''} • ${it.status || ''}</div>\n              <div style=\"margin-top:6px;\">${tags}</div>\n              <div class=\"action-bar\">\n                <a class=\"action\" href=\"#\" data-action=\"view\">View markdown</a>\n                <a class=\"action\" href=\"#\" data-action=\"copy\">Copy</a>\n                <a class=\"action\" href=\"#\" data-action=\"discuss\">Discuss</a>\n                <span class=\"action\">${comments} comments</span>\n              </div>\n            </div>\n          </article>\n        `;
       }
 
       function render(){
         const list = $('#list');
         list.innerHTML = sortData().map(renderItem).join('');
         // attach handlers
-        $$('.item').forEach(card => {
+        $$('.post').forEach(card => {
           const id = card.getAttribute('data-id');
           card.querySelector('[data-vote="up"]').onclick = () => vote(id, 1);
           card.querySelector('[data-vote="down"]').onclick = () => vote(id, -1);
