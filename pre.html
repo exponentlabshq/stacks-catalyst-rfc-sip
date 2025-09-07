@@ -17,8 +17,6 @@
       .pre-actions { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
       .btn { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--border); background: var(--text); color: var(--bg); text-decoration: none; }
       .btn.secondary { background: transparent; color: var(--text); }
-      .join { display:flex; gap:8px; justify-content:center; margin-top:14px; flex-wrap: wrap; }
-      .join input[type="email"] { width: 260px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); color: var(--text); }
     </style>
   </head>
   <body>
@@ -33,10 +31,7 @@
           <a class="btn secondary" href="submit-sip.html">Submit a SIP</a>
           <a class="btn secondary" href="view-submitted-sips.html">Vote</a>
         </div>
-        <form class="join" id="joinForm" onsubmit="event.preventDefault();(function(){const e=document.getElementById('joinEmail').value.trim();const subj=encodeURIComponent('Join The Team');const body=encodeURIComponent('Please reach out to: '+e);window.location.href=`mailto:private@exponentlabs.ai?subject=${subj}&body=${body}`;})();">
-          <input type="email" id="joinEmail" placeholder="you@example.com" required />
-          <button class="btn secondary" type="submit">Join The Team</button>
-        </form>
+        <p class="pre-sub" style="margin-top:12px">Follow <a href="https://x.com/attractfund1ng" target="_blank" rel="noopener">@attractfund1ng</a> for more.</p>
       </div>
     </main>
   </body>
