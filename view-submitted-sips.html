@@ -90,7 +90,8 @@
         const comments = it.comments || 0;
         const author = it.author ? ` • by ${it.author}` : '';
         return `
-          <article class=\"post\" data-id=\"${it.id}\">\n            <div class=\"vote-col\">\n              <div class=\"vote-btn up ${local===1?'active':''}\" data-vote=\"up\">▲</div>\n              <div class=\"score\">${s}</div>\n              <div class=\"vote-btn down ${local===-1?'active':''}\" data-vote=\"down\">▼</div>\n            </div>\n            <div class=\"post-body\">\n              <div class=\"post-title\"><a href=\"#\">[SIP-${it.sip || 'TBD'}] ${it.title}</a></div>\n              <div class=\"post-meta\">${new Date(it.created).toLocaleDateString()} • ${it.type || ''} • ${it.status || ''}${author}</div>\n              <div style=\"margin-top:6px;\">${tags}</div>\n              <div class=\"action-bar\">\n                <a class=\"action\" href=\"#\" data-action=\"view\">View markdown</a>\n                <a class=\"action\" href=\"#\" data-action=\"copy\">Copy</a>\n                <a class=\"action\" href=\"#\" data-action=\"discuss\">Discuss</a>\n                <span class=\"action\">${comments} comments</span>\n              </div>\n            </div>\n          </article>\n        `;
+          <article class=\"post\" data-id=\"${it.id}\">\n            <div class=\"vote-col\">\n              <div class=\"vote-btn up ${local===1?'active':''}\" data-vote=\"up\">▲</div>\n              <div class=\"score\">${s}</div>\n              <div class=\"vote-btn down ${local===-1?'active':''}\" data-vote=\"down\">▼</div>\n            </div>\n            <div class=\"post-body\">\n              <div class=\"post-title\"><a href=\"#\">[SIP-${it.sip || 'TBD'}] ${it.title}</a></div>\n              <div class=\"post-meta\">${new Date(it.created).toLocaleDateString()} • ${it.type || ''} • ${it.status || ''}${author}</div>\n              <div style=\"margin-top:6px;\">${tags}</div>\n              <div class=\"action-bar\">\n                <a class=\"action\" href="${it.url || it.discussions || '#'}" target="_blank" rel="noopener noreferrer">Forum thread</a>
+                <a class=\"action\" href=\"#\" data-action=\"copy\">Copy</a>\n                <a class=\"action\" href=\"#\" data-action=\"discuss\">Discuss</a>\n                <span class=\"action\">${comments} comments</span>\n              </div>\n            </div>\n          </article>\n        `;
       }
 
       function render(){
@@ -101,7 +102,7 @@
           const id = card.getAttribute('data-id');
           card.querySelector('[data-vote="up"]').onclick = () => vote(id, 1);
           card.querySelector('[data-vote="down"]').onclick = () => vote(id, -1);
-          card.querySelector('[data-action="view"]').onclick = () => openMarkdown(id);
+          const viewEl = card.querySelector('[data-action="view"]'); if (viewEl) viewEl.onclick = () => openMarkdown(id);
           card.querySelector('[data-action="copy"]').onclick = () => copyMarkdown(id);
           card.querySelector('[data-action="discuss"]').onclick = () => openDiscuss(id);
         });
