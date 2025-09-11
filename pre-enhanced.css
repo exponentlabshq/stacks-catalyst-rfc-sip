@@ -1,0 +1,48 @@
+:root {
+  --stacks-orange: #fb6334;
+  --bg: #c9c9c9;
+  --section-bg: #f6f8f4;
+  --important-orange: #f78662;
+  --text: #0a0a0a;
+  --muted: #5b5b5b;
+  --border: rgba(0,0,0,0.12);
+  --radius: 16px;
+  --shadow: 0 6px 24px rgba(0,0,0,0.08);
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.pre-wrap { display: grid; place-items: center; min-height: 100dvh; padding: 24px; }
+.pre-card {
+  text-align: center;
+  max-width: 640px;
+  padding: 36px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--section-bg);
+  box-shadow: var(--shadow);
+}
+.pre-logo { height: 28px; vertical-align: middle; margin-bottom: 10px; }
+.pre-title { margin: 6px 0 10px 0; font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.02em; color: var(--stacks-orange); }
+.pre-sub { color: var(--muted); }
+.pre-actions { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 44px; padding: 0 18px; border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--stacks-orange);
+  color: white; text-decoration: none;
+}
+.btn.secondary { background: transparent; color: var(--text); }
+.btn:hover { filter: brightness(0.95); }
+
+a { color: var(--important-orange); }
+
+
