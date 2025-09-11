@@ -119,7 +119,10 @@ async function init() {
       if (it.license) licenses.add(it.license);
     }
     buildOptions($("#type-filter"), types);
-    buildOptions($("#license-filter"), licenses);
+    const licenseSelect = $("#license-filter");
+    if (licenseSelect) {
+      buildOptions(licenseSelect, licenses);
+    }
 
     renderMeta();
     renderGrid();
@@ -133,7 +136,10 @@ async function init() {
   const onQuery = debounce((e) => { state.query = e.target.value; applyFilters(); }, 120);
   $("#q").addEventListener("input", onQuery);
   $("#type-filter").addEventListener("change", (e) => { state.type = e.target.value; applyFilters(); });
-  $("#license-filter").addEventListener("change", (e) => { state.license = e.target.value; applyFilters(); });
+  const licenseFilter = $("#license-filter");
+  if (licenseFilter) {
+    licenseFilter.addEventListener("change", (e) => { state.license = e.target.value; applyFilters(); });
+  }
 }
 
 init();
