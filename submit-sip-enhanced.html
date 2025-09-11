@@ -158,19 +158,7 @@
           </label>
         </div>
 
-        <div class="row">
-          <label>
-            <span>Problem Statement (optional, Markdown)</span>
-            <textarea id="problem"></textarea>
-          </label>
-        </div>
-
-        <div class="row">
-          <label>
-            <span>Proposed Solution (optional, Markdown)</span>
-            <textarea id="solution"></textarea>
-          </label>
-        </div>
+        
 
         <div class="row">
           <label>
@@ -181,7 +169,7 @@
 
         <div class="row">
           <label>
-            <span>Related Work (optional, Markdown)</span>
+            <span>Related Work (Markdown)</span>
             <textarea id="related"></textarea>
           </label>
         </div>
@@ -199,8 +187,15 @@
 
         <div class="row">
           <label>
-            <span>Reference Implementations (optional, Markdown)</span>
+            <span>Reference Implementation (Markdown)</span>
             <textarea id="refs"></textarea>
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>References (Markdown)</span>
+            <textarea id="references"></textarea>
           </label>
         </div>
 
@@ -219,14 +214,29 @@
       const v = id => $(id.startsWith('#')?id:'#'+id).value.trim();
       const mv = (id) => Array.from($(id).selectedOptions).map(o => o.value);
 
-      function asBullets(text) {
+      function asHyphenBullets(text) {
         if (!text) return '';
-        return text.split('\n').map(l => l.trim()).filter(Boolean).map(l => l.startsWith('-')? l : `- ${l}`).join('\n');
+        return text
+          .split('\n')
+          .map(l => l.trim())
+          .filter(Boolean)
+          .map(l => l.startsWith('-') ? ` ${l}` : ` - ${l}`)
+          .join('\n');
+      }
+
+      function asStarBullets(text) {
+        if (!text) return '';
+        return text
+          .split('\n')
+          .map(l => l.trim())
+          .filter(Boolean)
+          .map(l => l.startsWith('*') ? l : `* ${l.replace(/^[-]\s*/, '')}`)
+          .join('\n');
       }
 
       function field(label, value) {
         if (!value) return '';
-        return `**${label}:** ${value}`;
+        return `${label}: ${value}`;
       }
 
       function buildMarkdown() {
@@ -238,18 +248,21 @@
         const status = v('status') || 'Draft';
         const license = v('license') || 'BSD-2-Clause';
         const layer = $('#layerRow').hidden ? '' : v('layer');
-        const authors = asBullets(v('authors'));
-        const signoff = asBullets(v('signoff'));
+        const authors = asStarBullets(v('authors'));
+        const signoff = asHyphenBullets(v('signoff'));
         const discussions = v('discussions');
         const abstract = v('abstract');
         const introduction = v('introduction');
-        const problem = v('problem');
-        const solution = v('solution');
         const specification = v('specification');
         const related = v('related');
         const backcompat = v('backcompat');
         const activation = v('activation');
         const refs = v('refs');
+        const references = v('references');
+        
+        // Output adjustments to match SIP-021 style
+        const typeOut = type.replace(/\s*\(.+\)$/, '');
+        const licenseOut = license.replace('BSD-2-Clause', 'BSD 2-Clause');
 
         const preamble = [
           '# Preamble',
@@ -258,11 +271,11 @@
           '',
           field('Title', title),
           '',
-          authors ? '**Authors:**\n' + authors : '',
+          authors ? 'Authors:\n' + authors : '',
           '',
           field('Consideration', consideration),
           '',
-          field('Type', type),
+          field('Type', typeOut),
           '',
           layer ? field('Layer', layer) : '',
           '',
@@ -270,26 +283,31 @@
           '',
           field('Created', created),
           '',
-          field('License', license),
+          field('License', licenseOut),
           '',
-          signoff ? '**Sign-off:**\n' + signoff : '',
+          signoff ? 'Sign-off:\n' + signoff : '',
           '',
-          discussions ? '**Discussions-To:**\n- ' + discussions : '',
-        ].filter(Boolean).join('\n');
+          discussions ? 'Discussions-To: ' + discussions : '',
+        ].join('\n');
 
         const sections = [];
-        if (abstract) sections.push('## Abstract\n\n' + abstract);
-        if (introduction) sections.push('## Introduction\n\n' + introduction);
-        if (problem) sections.push('## Problem Statement\n\n' + problem);
-        if (solution) sections.push('## Proposed Solution\n\n' + solution);
+        if (abstract) sections.push('# Abstract\n\n' + abstract);
+        if (introduction) sections.push('# Introduction\n\n' + introduction);
         if (specification) sections.push('# Specification\n\n' + specification);
         if (related) sections.push('# Related Work\n\n' + related);
         if (backcompat) sections.push('# Backwards Compatibility\n\n' + backcompat);
         if (activation) sections.push('# Activation\n\n' + activation);
-        if (refs) sections.push('# Reference Implementations\n\n' + refs);
+        if (refs) sections.push('# Reference Implementation\n\n' + refs);
+        if (references) sections.push('# References\n\n' + references);
 
-        const md = [preamble, sections.join('\n\n')].filter(Boolean).join('\n\n');
-        return md;
+        // Normalize spacing: ensure blank line between preamble and each H1 section
+        const normalizedSections = sections
+          .map(s => s.replace(/^\s+|\s+$/g, ''))
+          .filter(Boolean);
+        const md = [preamble.trim(), ...normalizedSections]
+          .join('\n\n')
+          .replace(/\n{3,}/g, '\n\n');
+        return md.endsWith('\n') ? md : md + '\n';
       }
 
       function validate() {
