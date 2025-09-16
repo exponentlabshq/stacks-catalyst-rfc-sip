@@ -38,6 +38,16 @@
       }
       .copy-floating.secondary { background: transparent; color: var(--text); }
       .panel h2 { margin: 0; font-size: 14px; color: var(--muted); font-weight: 600; }
+      /* Consideration checkbox styling */
+      #consideration-group { align-items: start; }
+      #consideration-group label {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 8px 10px; border: 1px solid var(--border); border-radius: 10px;
+        background: var(--card);
+      }
+      #consideration-group input[type="checkbox"] {
+        width: 16px; height: 16px; margin: 0;
+      }
     </style>
   </head>
   <body>
@@ -75,14 +85,12 @@
           <div class="row two">
             <label>
               <span>Consideration</span>
-              <select id="consideration" multiple>
-                <option value="Governance">Governance</option>
-                <option value="Technical">Technical</option>
-                <option value="Economics">Economics</option>
-                <option value="Ethics">Ethics</option>
-                <option value="Diversity">Diversity</option>
-              </select>
-              <div class="hint">Hold Cmd/Ctrl to select multiple.</div>
+              <div id="consideration-group" class="row" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px;">
+                <label><input type="checkbox" name="consideration" value="Governance" /> Governance</label>
+                <label><input type="checkbox" name="consideration" value="Technical" /> Technical</label>
+                <label><input type="checkbox" name="consideration" value="Economics" /> Economics</label>
+              </div>
+              <div class="hint">Select one or more.</div>
             </label>
             <label>
               <span>Type</span>
@@ -238,6 +246,9 @@
       const $ = (s, r=document) => r.querySelector(s);
       const v = id => $(id.startsWith('#')?id:'#'+id).value.trim();
       const mv = (id) => Array.from($(id).selectedOptions).map(o => o.value);
+      function getConsiderations() {
+        return Array.from(document.querySelectorAll('input[name="consideration"]:checked')).map(i => i.value);
+      }
 
       function asHyphenBullets(text) {
         if (!text) return '';
@@ -268,7 +279,7 @@
         const sipNumber = v('sipNumber') || 'TBD';
         const created = v('created');
         const title = v('title');
-        const consideration = mv('#consideration').join(', ');
+        const consideration = getConsiderations().join(', ');
         const type = v('type');
         const status = v('status') || 'Draft';
         const license = v('license') || 'BSD-2-Clause';
@@ -337,7 +348,7 @@
         const note = $('#note');
         const required = [];
         if (!v('title')) required.push('Title');
-        if (mv('#consideration').length === 0) required.push('Consideration');
+        if (getConsiderations().length === 0) required.push('Consideration');
         if (!v('type')) required.push('Type');
         if (!v('status')) required.push('Status');
         if (!v('license')) required.push('License');
