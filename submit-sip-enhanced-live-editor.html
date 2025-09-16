@@ -45,7 +45,7 @@
       <div class="container">
         <div class="hero">
           <h1 class="title">Create a SIP (Live)</h1>
-          <p class="subtitle">Fill the form on the left. Live Markdown updates on the right. Use “Copy Markdown” when ready.</p>
+          <p class="subtitle">Step 1: Fill the form on the left. Step 2: Live Markdown updates on the right. Step 3: Use “Copy Markdown” when ready. Step 4: Download Markdown. Step 5: Submit PR on Github.</p>
         </div>
       </div>
     </header>
@@ -228,6 +228,7 @@
         <div class="toolbar-floating">
           <button id="copySideBtn" class="copy-floating" type="button">Copy</button>
           <button id="downloadSideBtn" class="copy-floating secondary" type="button">Download</button>
+          <button id="submitPrBtn" class="copy-floating secondary" type="button">Submit PR</button>
         </div>
         <pre id="livePreview" class="live"></pre>
       </section>
@@ -412,6 +413,7 @@
       $('#copyBtn').addEventListener('click', () => { if (validate()) copyMarkdown(); });
       $('#copySideBtn').addEventListener('click', copySideMarkdown);
       $('#downloadSideBtn').addEventListener('click', downloadSideMarkdown);
+      $('#submitPrBtn').addEventListener('click', () => { window.open('https://github.com/stacksgov/sips/pulls', '_blank', 'noopener'); });
       $('#clearBtn').addEventListener('click', () => { document.getElementById('sip-form').reset(); updateLive(); $('#note').textContent=''; });
 
       // Show/hide Layer based on Type
