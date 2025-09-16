@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Create a SIP (Live Markdown Editor)</title>
+    <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/favicon/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon/favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      .split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      @media (max-width: 980px) { .split { grid-template-columns: 1fr; } }
+      .left { min-width: 0; }
+      .right { min-width: 0; }
+      .form { display: grid; gap: 14px; }
+      .row { display: grid; gap: 8px; }
+      .row.two { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+      label { font-size: 12px; color: var(--muted); }
+      input, select, textarea { width: 100%; padding: 12px 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 14px; }
+      textarea { min-height: 120px; resize: vertical; }
+      .hint { font-size: 12px; color: var(--muted); }
+      .actions { display: flex; gap: 10px; margin-top: 10px; }
+      .btn { display: inline-flex; align-items: center; gap: 10px; height: 42px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--text); color: var(--bg); text-decoration: none; cursor: pointer; }
+      .btn.secondary { background: transparent; color: var(--text); }
+      .note { margin-top: 8px; color: var(--muted); font-size: 13px; }
+      .ok { color: #059669; }
+      .error { color: #b91c1c; }
+      .live { border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); padding: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; height: 100%; min-height: 360px; overflow: auto; white-space: pre-wrap; }
+      .panel { display: grid; grid-template-rows: auto 1fr; gap: 12px; }
+      .panel.right-panel { position: relative; }
+      .toolbar-floating { position: absolute; right: 8px; top: 8px; z-index: 1; display: inline-flex; gap: 8px; }
+      .copy-floating {
+        display: inline-flex; align-items: center; gap: 6px;
+        height: 30px; padding: 0 10px; border-radius: 999px;
+        border: 1px solid var(--border); background: var(--text); color: var(--bg);
+        cursor: pointer; font-size: 12px;
+      }
+      .copy-floating.secondary { background: transparent; color: var(--text); }
+      .panel h2 { margin: 0; font-size: 14px; color: var(--muted); font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <div class="hero">
+          <h1 class="title">Create a SIP (Live)</h1>
+          <p class="subtitle">Fill the form on the left. Live Markdown updates on the right. Use “Copy Markdown” when ready.</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="container split">
+      <section class="left panel">
+        <h2>Form</h2>
+        <form id="sip-form" class="form" onsubmit="return false;">
+          <div class="row two">
+            <label>
+              <span>SIP Number (optional)</span>
+              <input id="sipNumber" placeholder="e.g., 031 or leave blank (TBD)" />
+            </label>
+            <label>
+              <span>Created (ISO or human-readable)</span>
+              <input id="created" placeholder="e.g., 2025-07-16" />
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              <span>Title</span>
+              <input id="title" placeholder="SIP Title" />
+            </label>
+          </div>
+
+          <div class="row two">
+            <label>
+              <span>Consideration</span>
+              <select id="consideration" multiple>
+                <option value="Governance">Governance</option>
+                <option value="Technical">Technical</option>
+                <option value="Economics">Economics</option>
+                <option value="Ethics">Ethics</option>
+                <option value="Diversity">Diversity</option>
+              </select>
+              <div class="hint">Hold Cmd/Ctrl to select multiple.</div>
+            </label>
+            <label>
+              <span>Type</span>
+              <select id="type">
+                <option value="Consensus (soft fork)">Consensus (soft fork)</option>
+                <option value="Consensus (hard fork)">Consensus (hard fork)</option>
+                <option value="Standard">Standard</option>
+                <option value="Operation">Operation</option>
+                <option value="Meta">Meta</option>
+                <option value="Informational">Informational</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="row" id="layerRow" hidden>
+            <label>
+              <span>Layer (required for Standard/Consensus)</span>
+              <select id="layer">
+                <option value="Consensus (soft fork)">Consensus (soft fork)</option>
+                <option value="Consensus (hard fork)">Consensus (hard fork)</option>
+                <option value="Peer Services">Peer Services</option>
+                <option value="API/RPC">API/RPC</option>
+                <option value="Traits">Traits</option>
+                <option value="Applications">Applications</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="row two">
+            <label>
+              <span>Status</span>
+              <select id="status">
+                <option>Draft</option>
+                <option>Accepted</option>
+                <option>Recommended</option>
+                <option>Activation-In-Progress</option>
+                <option>Ratified</option>
+                <option>Rejected</option>
+                <option>Obsolete</option>
+                <option>Replaced</option>
+                <option>Withdrawn</option>
+              </select>
+            </label>
+            <label>
+              <span>License</span>
+              <select id="license">
+                <option>BSD-2-Clause</option>
+                <option>BSD-3-Clause</option>
+                <option>CC0-1.0</option>
+                <option>GNU-All-Permissive</option>
+                <option>GPL-2.0+</option>
+                <option>LGPL-2.1+</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              <span>Authors (Markdown bullets encouraged)</span>
+              <textarea id="authors" placeholder="- Full Name (email@domain)
+- Another Author (name@domain)"></textarea>
+            </label>
+            <div class="hint">Tip: Use one author per line with email in parentheses, like SIP-028.</div>
+          </div>
+
+          <div class="row">
+            <label>
+              <span>Sign-off (optional, Markdown bullets)</span>
+              <textarea id="signoff" placeholder="- Name email@domain (Role)"></textarea>
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              <span>Discussions-To (URL or reference)</span>
+              <input id="discussions" placeholder="e.g., https://forum.stacks.org/..." />
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              <span>Abstract (Markdown)</span>
+              <textarea id="abstract" placeholder="Concise summary of the proposal and what it enables."></textarea>
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              <span>Introduction (Markdown)</span>
+              <textarea id="introduction"></textarea>
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              <span>Specification (Markdown)</span>
+              <textarea id="specification"></textarea>
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              <span>Related Work (Markdown)</span>
+              <textarea id="related"></textarea>
+            </label>
+          </div>
+
+          <div class="row two">
+            <label>
+              <span>Backwards Compatibility (optional, Markdown)</span>
+              <textarea id="backcompat"></textarea>
+            </label>
+            <label>
+              <span>Activation (Markdown)</span>
+              <textarea id="activation"></textarea>
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              <span>Reference Implementation (Markdown)</span>
+              <textarea id="refs"></textarea>
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              <span>References (Markdown)</span>
+              <textarea id="references"></textarea>
+            </label>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="copyBtn" type="button">Copy Markdown</button>
+            <button class="btn secondary" id="clearBtn" type="button">Clear</button>
+          </div>
+          <div id="note" class="note"></div>
+        </form>
+      </section>
+
+      <section class="right panel right-panel">
+        <h2>Live Markdown</h2>
+        <div class="toolbar-floating">
+          <button id="copySideBtn" class="copy-floating" type="button">Copy</button>
+          <button id="downloadSideBtn" class="copy-floating secondary" type="button">Download</button>
+        </div>
+        <pre id="livePreview" class="live"></pre>
+      </section>
+    </main>
+
+    <script>
+      const $ = (s, r=document) => r.querySelector(s);
+      const v = id => $(id.startsWith('#')?id:'#'+id).value.trim();
+      const mv = (id) => Array.from($(id).selectedOptions).map(o => o.value);
+
+      function asHyphenBullets(text) {
+        if (!text) return '';
+        return text
+          .split('\n')
+          .map(l => l.trim())
+          .filter(Boolean)
+          .map(l => l.startsWith('-') ? ` ${l}` : ` - ${l}`)
+          .join('\n');
+      }
+
+      function asStarBullets(text) {
+        if (!text) return '';
+        return text
+          .split('\n')
+          .map(l => l.trim())
+          .filter(Boolean)
+          .map(l => l.startsWith('*') ? l : `* ${l.replace(/^[-]\s*/, '')}`)
+          .join('\n');
+      }
+
+      function field(label, value) {
+        if (!value) return '';
+        return `${label}: ${value}`;
+      }
+
+      function buildMarkdown() {
+        const sipNumber = v('sipNumber') || 'TBD';
+        const created = v('created');
+        const title = v('title');
+        const consideration = mv('#consideration').join(', ');
+        const type = v('type');
+        const status = v('status') || 'Draft';
+        const license = v('license') || 'BSD-2-Clause';
+        const layer = $('#layerRow').hidden ? '' : v('layer');
+        const authors = asStarBullets(v('authors'));
+        const signoff = asHyphenBullets(v('signoff'));
+        const discussions = v('discussions');
+        const abstract = v('abstract');
+        const introduction = v('introduction');
+        const specification = v('specification');
+        const related = v('related');
+        const backcompat = v('backcompat');
+        const activation = v('activation');
+        const refs = v('refs');
+        const references = v('references');
+
+        const typeOut = type.replace(/\s*\(.+\)$/, '');
+        const licenseOut = license.replace('BSD-2-Clause', 'BSD 2-Clause');
+
+        const preamble = [
+          '# Preamble',
+          '',
+          field('SIP Number', sipNumber),
+          '',
+          field('Title', title),
+          '',
+          authors ? 'Authors:\n' + authors : '',
+          '',
+          field('Consideration', consideration),
+          '',
+          field('Type', typeOut),
+          '',
+          layer ? field('Layer', layer) : '',
+          '',
+          field('Status', status),
+          '',
+          field('Created', created),
+          '',
+          field('License', licenseOut),
+          '',
+          signoff ? 'Sign-off:\n' + signoff : '',
+          '',
+          discussions ? 'Discussions-To: ' + discussions : '',
+        ].join('\n');
+
+        const sections = [];
+        if (abstract) sections.push('# Abstract\n\n' + abstract);
+        if (introduction) sections.push('# Introduction\n\n' + introduction);
+        if (specification) sections.push('# Specification\n\n' + specification);
+        if (related) sections.push('# Related Work\n\n' + related);
+        if (backcompat) sections.push('# Backwards Compatibility\n\n' + backcompat);
+        if (activation) sections.push('# Activation\n\n' + activation);
+        if (refs) sections.push('# Reference Implementation\n\n' + refs);
+        if (references) sections.push('# References\n\n' + references);
+
+        const normalizedSections = sections
+          .map(s => s.replace(/^\s+|\s+$/g, ''))
+          .filter(Boolean);
+        const md = [preamble.trim(), ...normalizedSections]
+          .join('\n\n')
+          .replace(/\n{3,}/g, '\n\n');
+        return md.endsWith('\n') ? md : md + '\n';
+      }
+
+      function validate() {
+        const note = $('#note');
+        const required = [];
+        if (!v('title')) required.push('Title');
+        if (mv('#consideration').length === 0) required.push('Consideration');
+        if (!v('type')) required.push('Type');
+        if (!v('status')) required.push('Status');
+        if (!v('license')) required.push('License');
+        if ($('#layerRow').hidden === false && !v('layer')) required.push('Layer');
+        if (required.length) {
+          note.textContent = `Missing required: ${required.join(', ')}`;
+          note.className = 'note error';
+          return false;
+        }
+        const created = v('created');
+        if (created && !/^\d{4}-\d{2}-\d{2}$/.test(created)) {
+          note.textContent = 'Hint: use Created in YYYY-MM-DD format.';
+          note.className = 'note';
+        } else {
+          note.textContent = '';
+        }
+        return true;
+      }
+
+      function updateLive() {
+        const md = buildMarkdown();
+        $('#livePreview').textContent = md;
+      }
+
+      async function copyMarkdown() {
+        const note = $('#note');
+        const md = buildMarkdown();
+        try {
+          await navigator.clipboard.writeText(md);
+          note.textContent = 'Copied Markdown to clipboard.';
+          note.className = 'note ok';
+        } catch (e) {
+          note.textContent = 'Copy failed. Select from preview and copy manually.';
+          note.className = 'note error';
+        }
+      }
+
+      async function copySideMarkdown() {
+        const md = $('#livePreview').textContent || '';
+        try {
+          await navigator.clipboard.writeText(md);
+          const btn = $('#copySideBtn');
+          const original = btn.textContent;
+          btn.textContent = 'Copied';
+          setTimeout(() => { btn.textContent = original; }, 1200);
+        } catch (e) {
+          const btn = $('#copySideBtn');
+          const original = btn.textContent;
+          btn.textContent = 'Copy failed';
+          setTimeout(() => { btn.textContent = original; }, 1400);
+        }
+      }
+
+      function downloadSideMarkdown() {
+        const md = $('#livePreview').textContent || '';
+        const numRaw = (document.getElementById('sipNumber')?.value || 'TBD').toString();
+        const num = numRaw === 'TBD' ? 'TBD' : numRaw.padStart(3, '0');
+        const title = (document.getElementById('title')?.value || 'draft').toLowerCase();
+        const safeTitle = title.replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        const filename = `sip-${num}-${safeTitle || 'draft'}.md`;
+        const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 500);
+      }
+
+      // Wire buttons
+      $('#copyBtn').addEventListener('click', () => { if (validate()) copyMarkdown(); });
+      $('#copySideBtn').addEventListener('click', copySideMarkdown);
+      $('#downloadSideBtn').addEventListener('click', downloadSideMarkdown);
+      $('#clearBtn').addEventListener('click', () => { document.getElementById('sip-form').reset(); updateLive(); $('#note').textContent=''; });
+
+      // Show/hide Layer based on Type
+      $('#type').addEventListener('change', () => {
+        const t = v('type');
+        const needsLayer = t === 'Standard' || t.startsWith('Consensus');
+        $('#layerRow').hidden = !needsLayer;
+        updateLive();
+      });
+
+      // Live-update on all inputs
+      document.querySelectorAll('#sip-form input, #sip-form select, #sip-form textarea')
+        .forEach(el => {
+          el.addEventListener('input', updateLive);
+          el.addEventListener('change', updateLive);
+        });
+
+      // Initialize
+      $('#type').dispatchEvent(new Event('change'));
+      updateLive();
+    </script>
+  </body>
+  </html>
+
+
